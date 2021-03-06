@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Portal } from '../models/portal.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,19 @@ export class PortalsService {
 
   }
 
-  delete() {}
+  delete( portal : Portal ) {
+
+    const url = `${this._url}/portal/${portal.id}`;
+
+    return this.http.delete(url, {observe : 'response'});
+
+  }
+  close( portal : Portal ) {
+
+    const url = `${this._url}/close/${portal.id}`;
+
+    return this.http.get(url, {observe : 'response'});
+
+  }
 
 }

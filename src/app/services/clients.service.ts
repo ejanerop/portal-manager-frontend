@@ -58,7 +58,6 @@ export class ClientsService {
   }
 
   edit(data : any) {
-    console.log(data);
     const url = data.id == 0 ? `${this._url}/client` : `${this._url}/client/${data.id}`;
 
     if (data.id == 0) {
@@ -69,7 +68,19 @@ export class ClientsService {
 
   }
 
-  delete() {}
+  delete( client : Client ) {
 
+    const url = `${this._url}/client/${client.id}`;
+
+    return this.http.delete(url, {observe : 'response'});
+
+  }
+  close( client : Client ) {
+
+    const url = `${this._url}/client_logout/${client.id}`;
+
+    return this.http.get(url, {observe : 'response'});
+
+  }
 
 }
