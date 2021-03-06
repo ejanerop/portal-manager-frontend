@@ -1,0 +1,41 @@
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+      <div class="container">
+        <div class="carousel-caption">
+          <h1>Cerrar sesión</h1>
+          <p></p>
+          <p><a class="btn btn-lg btn-danger" href="#" role="button"> <i class="fa fa-wifi"></i> Cerrar sesión</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2 class="mb-3">Mis portales</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th class="w-75">Portal</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let portal of client.portals">
+            <td style="font-size: x-large;"> {{portal.name}} </td>
+            <td><button class="btn btn-outline-primary btn-menu">Cambiar</button></td>
+            <td><button class="btn btn-outline-danger btn-menu"> <i class="fa fa-close"></i> </button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+

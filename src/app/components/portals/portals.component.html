@@ -1,0 +1,40 @@
+<div class="container">
+
+  <div class="row mt-5">
+    <div class="col-md-9">
+      <h2>Portales</h2>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-outline-success w-100" type="button" (click) = "new()"><i class="fa fa-plus"></i> Nuevo portal</button>
+    </div>
+  </div>
+  <table class="table table-hover table-bordered table-responsive">
+    <thead>
+      <tr>
+        <th class="w-15">Portal</th>
+        <th class="w-25">address_list</th>
+        <th class="w-25">dhcp_client</th>
+        <th class="w-15">Accion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let portal of portals; let i = index">
+        <td>{{portal.name}}</td>
+        <td>{{portal.address_list}}</td>
+        <td>{{portal.dhcp_client}}</td>
+        <td>
+          <button class="btn btn-outline-info btn-menu" type="button" (click)= "edit(portal)"><i class="fa fa-pencil"></i></button>
+          <button class="btn btn-outline-danger btn-menu" type="button" (click)= "delete(portal)"><i class="fa fa-trash"></i></button>
+          <button class="btn btn-outline-warning btn-menu" type="button"><i class="fa fa-close"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="alert alert-info text-center" role="alert" *ngIf="portals.length == 0">
+    <p>
+      <i class="fa fa-spin fa-spinner fa-4x"></i>
+    </p>
+    <h2 class="text-center">No hay portales que mostrar</h2>
+  </div>
+</div>
+

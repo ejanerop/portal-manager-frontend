@@ -1,0 +1,94 @@
+<div class="container">
+  <h1 class="text-center" *ngIf="loading">...</h1>
+  <h1 class="text-center" *ngIf="!new && !loading">Editar usuario: <small>{{client.nick}}</small></h1>
+  <h1 class="text-center" *ngIf="new && !loading">Crear nuevo usuario</h1>
+  <hr>
+
+  <div class="row text-right">
+    <div class="col">
+      <button class="btn btn-danger" [routerLink]="['/client']">
+        <i class="fa fa-arrow-left"></i> Atrás
+      </button>
+    </div>
+  </div>
+
+  <hr>
+
+  <div *ngIf="loading" class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="alert alert-info text-center" role="alert">
+        <p>
+          <i class="fa fa-spin fa-spinner fa-4x"></i>
+        </p>
+        <h2 class="text-center">Cargando</h2>
+      </div>
+    </div>
+  </div>
+  <form [formGroup]="form" (ngSubmit) = "save()">
+    <div *ngIf="!loading" class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label for="ip_address" class="form-label"> <h5>Direccion IP</h5> </label>
+          <input type="text" id="ip_address" class="form-control form-control-lg" formControlName = "ip_address" [class.is-invalid]="invalid('ip_address')" placeholder="192.168.20.x">
+          <div *ngIf="!invalid('ip_address')" class="form-text">
+            192.168.20.xx
+          </div>
+          <div class="invalid-feedback">
+            Escribe una dirección IP válida, en el rango 192.168.20.x
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="type" class="form-label"> <h5>Tipo de usuario</h5> </label>
+          <select name="type" id="type" formControlName="type" class="form-control form-control-lg">
+            <option *ngFor="let type of clientTypes" value="{{type.id}}">{{type.desc}}</option>
+          </select>
+          <div class="invalid-feedback">
+            Escoge un tipo
+          </div>
+        </div>
+        <div class="mb-5">
+          <label for="desc" class="form-label"> <h5>Nota</h5> </label>
+          <textarea name="desc" id="desc" formControlName="desc" class="form-control form-control-lg" cols="3"></textarea>
+          <div *ngIf="!invalid('nick')" class="form-text">
+            Opcional.
+          </div>
+          <div class="invalid-feedback">
+            Nota inválida
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label for="nick" class="form-label"> <h5>Usuario</h5> </label>
+          <input type="nick" name="nick" id="nick" class="form-control form-control-lg" formControlName = "nick" [class.is-invalid]="invalid('nick')"  placeholder="Nick">
+          <div *ngIf="!invalid('nick')" class="form-text">
+            Opcional.
+          </div>
+          <div class="invalid-feedback">
+            Nick es inválido
+          </div>
+        </div>
+        <div class="mb-5">
+          <label class="form-label"> <h5>Portales</h5> </label>
+          <div class="row mb-3" *ngFor="let selectedPortal of selectedPortals; let i = index" formArrayName="portals">
+            <div class="col-md-10">
+              <select name="" id="" [formControlName]="i" (change)="onPortalChange(i)" class="form-control w-100">
+                <ng-container *ngFor="let portal of portals">
+                  <option *ngIf="visible(portal.id, i)" value="{{portal.id}}">{{portal.name}}</option>
+                </ng-container>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <button *ngIf="i!=0" type="button" class="btn btn-outline-danger w-100" (click)="removePortal(i)"> <i class="fa fa-trash"></i> </button>
+            </div>
+          </div>
+          <button type="button" *ngIf="selectedPortals.length < client.allowedPortals" class="btn btn-outline-success w-100" (click)="addPortal()"> <i class="fa fa-plus"></i> </button>
+        </div>
+      </div>
+      <div class="col-md-6 ">
+        <button class="btn btn-outline-primary btn-lg w-100" type="submit">Guardar <i class="fa fa-save"></i> </button>
+      </div>
+    </div>
+  </form>
+</div>
+
