@@ -25,5 +25,12 @@ export class MainService {
 
   }
 
+  pingInternet() {
+    const url = 'https://api.github.com';
+
+    return this.http.get(url, {observe : 'response'});
+
+  }
+
 
 }

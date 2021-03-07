@@ -7,7 +7,7 @@
         <div class="carousel-caption">
           <h1>Cerrar sesión</h1>
           <p></p>
-          <p><a class="btn btn-lg btn-danger" href="#" role="button"> <i class="fa fa-wifi"></i> Cerrar sesión</a></p>
+          <p><button class="btn btn-lg btn-danger" (click)="closeCurrent()" role="button"> <i class="fa fa-wifi"></i> Cerrar sesión</button></p>
         </div>
       </div>
     </div>
@@ -29,8 +29,8 @@
         <tbody>
           <tr *ngFor="let portal of client.portals">
             <td style="font-size: x-large;"> {{portal.name}} </td>
-            <td><button class="btn btn-outline-primary btn-menu">Cambiar</button></td>
-            <td><button class="btn btn-outline-danger btn-menu"> <i class="fa fa-close"></i> </button></td>
+            <td><button class="btn btn-outline-primary btn-menu" (click)="changeTo(portal)" >Cambiar</button></td>
+            <td><button class="btn btn-outline-danger btn-menu"  (click)="close(portal)" > <i class="fa fa-close"></i> </button></td>
           </tr>
         </tbody>
       </table>

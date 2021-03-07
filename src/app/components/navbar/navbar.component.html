@@ -21,9 +21,9 @@
         </ng-container>
       </ul>
       <div class="d-flex">
-        <button class="btn btn-outline-warning btn-lg me-2 text-white" type="button" disabled> Estás en el portal: Games</button>
-        <button class="btn btn-success btn-lg me-2 text-white" type="button" disabled> <i class="fa fa-check"></i> Hay internet</button>
-        <button class="btn btn-danger btn-lg me-2 text-white" type="button" disabled> <i class="fa fa-close"></i> No hay internet</button>
+        <button class="btn btn-outline-warning btn-lg me-2 text-white"   type="button" disabled> Estás en el portal: Games</button>
+        <button class="btn btn-success btn-lg me-2 text-white"           type="button" *ngIf="isConnected" disabled> <i class="fa fa-check"></i> Hay internet</button>
+        <button class="btn btn-danger btn-lg me-2 text-white"            type="button" *ngIf="!isConnected" disabled> <i class="fa fa-close"></i> No hay internet</button>
         <button class="btn btn-outline-secondary btn-lg me-2 text-white" type="button" disabled> Tu ip: {{ip}}</button>
     </div>
     </div>
