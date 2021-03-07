@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Portal } from 'src/app/models/portal.model';
 import { PortalsService } from 'src/app/services/portals.service';
+import { Globals } from 'src/app/util/global';
 import Swal from "sweetalert2";
 
 @Component({
@@ -13,7 +14,7 @@ export class PortalsComponent implements OnInit {
 
   portals : Portal[] = [];
 
-  constructor( private portalService : PortalsService , private router : Router ) { }
+  constructor( private portalService : PortalsService , private router : Router, public global : Globals ) { }
 
   ngOnInit(): void {
     this.initComponent();

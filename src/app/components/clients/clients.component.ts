@@ -4,6 +4,7 @@ import { Client } from 'src/app/models/client.model';
 import { ClientType } from 'src/app/models/client_type.model';
 import { Portal } from 'src/app/models/portal.model';
 import { ClientsService } from 'src/app/services/clients.service';
+import { Globals } from 'src/app/util/global';
 import Swal from "sweetalert2";
 
 @Component({
@@ -17,7 +18,7 @@ export class ClientsComponent implements OnInit {
   allClients : Client[] = [];
   termino : string = '';
 
-  constructor( private clientService : ClientsService , private router : Router ) { }
+  constructor( private clientService : ClientsService , private router : Router ,  public global : Globals  ) { }
 
   ngOnInit(): void {
     this.initComponent();

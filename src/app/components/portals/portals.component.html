@@ -26,7 +26,9 @@
           <button class="btn btn-outline-info btn-menu"      type="button" (click)="show(portal)"  ><i class="fa fa-eye"   ></i></button>
           <button class="btn btn-outline-warning btn-menu"   type="button" (click)="edit(portal)"  ><i class="fa fa-pencil"></i></button>
           <button class="btn btn-outline-danger btn-menu"    type="button" (click)="delete(portal)"><i class="fa fa-trash" ></i></button>
-          <button class="btn btn-outline-secondary btn-menu" type="button" (click)="close(portal)" ><i class="fa fa-close" ></i></button>
+          <button class="btn btn-outline-secondary btn-menu" type="button" (click)="close(portal)" [disabled]="global.busy">
+            <i class="fa" [ngClass]="{ 'fa-close' :  !global.busy, 'fa-spin fa-spinner' : global.busy }" ></i>
+          </button>
         </td>
       </tr>
     </tbody>

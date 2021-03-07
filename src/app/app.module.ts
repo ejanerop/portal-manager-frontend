@@ -13,6 +13,8 @@ import { EditComponent } from './components/portals/edit/edit.component';
 import { EditComponent as EditClientComponent } from './components/clients/edit/edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsernamePipe } from './pipes/username.pipe';
+import { LogsComponent } from './components/logs/logs.component';
+import { Globals } from './util/global';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { UsernamePipe } from './pipes/username.pipe';
     ClientsComponent,
     EditComponent,
     EditClientComponent,
-    UsernamePipe
+    UsernamePipe,
+    LogsComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,9 @@ import { UsernamePipe } from './pipes/username.pipe';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    Globals
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
