@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MainService } from 'src/app/services/main.service';
-import { ConnectionService } from 'ng-connection-service';
 import { interval } from 'rxjs';
 import { Portal } from 'src/app/models/portal.model';
 import { ClientsService } from 'src/app/services/clients.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,12 +18,15 @@ export class NavbarComponent implements OnInit {
   asked :boolean = false;
   currentPortal : Portal = new Portal();
 
-  constructor( public router: Router, private mainService : MainService, private clientsService : ClientsService ) { }
+  constructor( public router: Router,
+               private mainService : MainService,
+               private clientsService : ClientsService ,
+               private authService : AuthService) { }
 
   ngOnInit(): void {
     this.setIp();
     this.clientsService.currentPortal().subscribe((resp : any) => this.currentPortal = resp.body ,
-                                                  (error :any) => console.log('Servicio inactivo.') );
+                                                  (error :any) => console.log('Servicio inactivo.'));
     const secondsCounter = interval(5000);
     let that = this;
     secondsCounter.subscribe( n => {
@@ -49,11 +52,11 @@ export class NavbarComponent implements OnInit {
   }
 
   isAuth(){
-    //return this.clientService.isAuth();
+    return this.authService.isAuth();
   }
 
   setIp(){
-    this.mainService.getIp().subscribe((ip :any) => this.ip = ip);
+    this.mainService.getIp().subscribe((data :any) => this.ip = data.body);
   }
 
 }

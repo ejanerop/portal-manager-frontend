@@ -5,11 +5,13 @@ import { HomeComponent } from './components/home/home.component';
 import { PortalsComponent } from './components/portals/portals.component';
 import { EditComponent as EditPortalComponent } from './components/portals/edit/edit.component';
 import { EditComponent as EditClientComponent } from './components/clients/edit/edit.component';
+import { LogsComponent } from './components/logs/logs.component';
 
 const routes: Routes = [
   {path : 'home', component : HomeComponent},
   {path : 'client', component : ClientsComponent},
   {path : 'portal', component : PortalsComponent},
+  {path : 'log', component : LogsComponent},
   {path : 'portal/:id', component : EditPortalComponent},
   {path : 'client/:id', component : EditClientComponent},
   {path : '**', pathMatch : 'full', redirectTo : 'home'},

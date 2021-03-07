@@ -1,25 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { Client } from '../models/client.model';
-import { Observable } from 'rxjs';
+import { Globals } from '../util/global';
 
-interface ErrorValidate{
-  [s:string]: boolean
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientsService {
 
-  _url : string = 'http://localhost:8001/api';
-
-  constructor( private http : HttpClient ) { }
+  constructor( private http : HttpClient , public global : Globals ) { }
 
   getClientType() {
 
-    const url = `${this._url}/client_type`;
+    const url = `${this.global.url}/client_type`;
 
     return this.http.get(url);
 
@@ -27,7 +21,7 @@ export class ClientsService {
 
   getClients() {
 
-    const url = `${this._url}/client`;
+    const url = `${this.global.url}/client`;
 
     return this.http.get(url, {observe : 'response'});
 
@@ -35,7 +29,7 @@ export class ClientsService {
 
   getClient( id : string ) {
 
-    const url = `${this._url}/client/${id}`;
+    const url = `${this.global.url}/client/${id}`;
 
     return this.http.get(url, {observe : 'response'});
 
@@ -43,7 +37,7 @@ export class ClientsService {
 
   getClientByIp() {
 
-    const url = `${this._url}/ip_client`;
+    const url = `${this.global.url}/ip_client`;
 
     return this.http.get(url, {observe : 'response'});
 
@@ -51,14 +45,14 @@ export class ClientsService {
 
   currentPortal() {
 
-    const url = `${this._url}/ip_portal`;
+    const url = `${this.global.url}/ip_portal`;
 
     return this.http.get(url, {observe : 'response'});
 
   }
 
   edit(data : any) {
-    const url = data.id == 0 ? `${this._url}/client` : `${this._url}/client/${data.id}`;
+    const url = data.id == 0 ? `${this.global.url}/client` : `${this.global.url}/client/${data.id}`;
 
     if (data.id == 0) {
       return this.http.post(url , data, {observe : 'response'});
@@ -70,14 +64,14 @@ export class ClientsService {
 
   delete( client : Client ) {
 
-    const url = `${this._url}/client/${client.id}`;
+    const url = `${this.global.url}/client/${client.id}`;
 
     return this.http.delete(url, {observe : 'response'});
 
   }
   close( client : Client ) {
 
-    const url = `${this._url}/client_logout/${client.id}`;
+    const url = `${this.global.url}/client_logout/${client.id}`;
 
     return this.http.get(url, {observe : 'response'});
 

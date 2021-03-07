@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand">
-      Cotízate
+      PortalManager
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -19,13 +19,19 @@
             <a class="nav-link" [routerLink]="['/portal']" routerLinkActive="active">Portales</a>
           </li>
         </ng-container>
+        <li class="nav-item ms-3">
+          <a class="nav-link" [routerLink]="['/log']" routerLinkActive="active">Registro de acciones</a>
+        </li>
       </ul>
       <div class="d-flex">
-        <button class="btn btn-outline-warning btn-lg me-2 text-white"   type="button" disabled> Estás en el portal: Games</button>
-        <button class="btn btn-success btn-lg me-2 text-white"           type="button" *ngIf="isConnected" disabled> <i class="fa fa-check"></i> Hay internet</button>
-        <button class="btn btn-danger btn-lg me-2 text-white"            type="button" *ngIf="!isConnected" disabled> <i class="fa fa-close"></i> No hay internet</button>
+        <button class="btn btn-outline-warning btn-lg me-2"   type="button" disabled> Estás en el portal: {{currentPortal.name}}</button>
+        <button class="btn btn-success btn-lg me-2"           type="button" *ngIf="isConnected" disabled> <i class="fa fa-check"></i> Hay internet</button>
+        <button class="btn btn-danger btn-lg me-2"            type="button" *ngIf="!isConnected" disabled> <i class="fa fa-close"></i> No hay internet</button>
         <button class="btn btn-outline-secondary btn-lg me-2 text-white" type="button" disabled> Tu ip: {{ip}}</button>
-    </div>
+        <button class="btn btn-outline-success btn-lg" type="button" *ngIf="!isAuth()"> <i class="fa fa-check"></i> Login </button>
+        <button class="btn btn-outline-danger btn-lg" type="button" *ngIf="isAuth()"> <i class="fa fa-close"></i> Logout </button>
+
+      </div>
     </div>
   </div>
 </nav>

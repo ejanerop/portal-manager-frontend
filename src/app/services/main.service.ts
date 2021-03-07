@@ -1,21 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Globals } from '../util/global';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MainService {
 
-  public _URL : string = 'http://localhost:8001/api'
 
-  constructor( private http : HttpClient ) { }
+  constructor( private http : HttpClient , public global : Globals ) { }
 
 
   getQuery( query : string ){
 
-    const endpoint = `${this._URL}/${ query }`;
+    const endpoint = `${this.global.url}/${ query }`;
 
-    return this.http.get(endpoint);
+    return this.http.get(endpoint , {observe : 'response'});
 
   }
 
@@ -29,6 +29,12 @@ export class MainService {
     const url = 'https://api.github.com';
 
     return this.http.get(url, {observe : 'response'});
+
+  }
+
+  logs() {
+
+    return this.getQuery('log');
 
   }
 

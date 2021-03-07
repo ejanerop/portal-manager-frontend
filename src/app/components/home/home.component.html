@@ -7,11 +7,15 @@
         <div class="carousel-caption">
           <h1>Cerrar sesión</h1>
           <p></p>
-          <p><button class="btn btn-lg btn-danger" (click)="closeCurrent()" role="button"> <i class="fa fa-wifi"></i> Cerrar sesión</button></p>
-        </div>
+          <p><button class="btn btn-lg btn-danger" (click)="closeCurrent()" role="button" [disabled]="global.busy">
+            <i class="fa" [ngClass]="{ 'fa-wifi' :  !global.busy, 'fa-spin fa-spinner' : global.busy }"></i>
+            Cerrar sesión
+          </button>
+        </p>
       </div>
     </div>
   </div>
+</div>
 </div>
 
 <div class="container">
@@ -21,7 +25,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th class="w-75">Portal</th>
+            <th class="w-70">Portal</th>
             <th></th>
             <th></th>
           </tr>
@@ -29,8 +33,17 @@
         <tbody>
           <tr *ngFor="let portal of client.portals">
             <td style="font-size: x-large;"> {{portal.name}} </td>
-            <td><button class="btn btn-outline-primary btn-menu" (click)="changeTo(portal)" >Cambiar</button></td>
-            <td><button class="btn btn-outline-danger btn-menu"  (click)="close(portal)" > <i class="fa fa-close"></i> </button></td>
+            <td>
+              <button class="btn btn-outline-primary btn-menu" (click)="changeTo(portal)" [disabled]="isActive(portal) || global.busy" >
+                <i *ngIf="global.busy && !isActive(portal)" class="fa fa-spin fa-spinner"></i>
+                {{isActive(portal) ? 'Activo' : 'Cambiar'}}
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-outline-danger btn-menu" (click)="close(portal)"  [disabled]="global.busy">
+                <i class="fa" [ngClass]="{ 'fa-close' :  !global.busy, 'fa-spin fa-spinner' : global.busy }"></i>
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
