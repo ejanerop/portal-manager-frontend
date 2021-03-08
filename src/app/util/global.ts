@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class Globals {
 
   private isBusy : boolean = false;
-  private _url : string = 'http://localhost:8001/api';
+  private _url : string = 'http://192.168.20.2:8000/api';
 
   triggerTimeout() {
     this.isBusy = true;

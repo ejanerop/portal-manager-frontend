@@ -29,16 +29,12 @@ export class ClientsComponent implements OnInit {
     this.allClients = [];
     this.clientService.getClients().subscribe( (data : any) => {
       for (const item of data.body) {
-        let type = item.client_type;
-        let portals : Portal[] = [];
-        for (const portal of item.portals) {
-          portals.push(new Portal(portal.id, portal.name, portal.dhcp_client, portal.address_list));
-        }
-        let client = new Client(item.id, item.nick, item.ip_address, new ClientType(type.id, type.type, type.desc), portals);
-        this.clients.push(client);
+        this.clients.push(item);
       }
       this.clients.sort((a, b) => Number(a.ip_address.split(".")[3]) - Number(b.ip_address.split(".")[3]));
-      this.allClients = this.clients
+      this.allClients = this.clients;
+      console.log(this.clients);
+
     });
   }
 
@@ -123,7 +119,7 @@ export class ClientsComponent implements OnInit {
       this.clients = this.allClients;
     } else {
       this.clients = this.clients.filter(item => {
-        if (item.nick.toLowerCase().includes(termino.toLowerCase()) || item.ip_address.toLowerCase().includes(termino.toLowerCase())) {
+        if (item.nick?.toLowerCase().includes(termino.toLowerCase()) || item.ip_address.toLowerCase().includes(termino.toLowerCase())) {
           return true;
         } else {
           return false;

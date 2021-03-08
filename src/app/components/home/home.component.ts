@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
       this.client = resp.body;
     });
     this.clientService.currentPortal().subscribe((resp : any) => this.currentPortal = resp.body ,
-    (error :any) => console.log('Servicio inactivo.'));
+    (error :any) => console.log(error));
 
   }
 
@@ -41,6 +41,14 @@ export class HomeComponent implements OnInit {
       timer : 10000
     });
     Swal.showLoading();
+
+    this.portalService.change(portal).subscribe((resp : any) => {
+      console.log(resp);
+      Swal.fire('Correcto', 'Portal cerrado con éxito', 'success');
+      this.timeout();
+    },(error : any) => {
+      Swal.fire('Ups!', error.error, 'error');
+    });
   }
 
   close( portal : Portal ) {
