@@ -6,15 +6,15 @@ export class Log {
 
   id : number;
   client : Client;
-  logType : LogType;
+  log_type : LogType;
   portal : Portal;
   created_at : string;
 
-  constructor( id? : number , client? : Client , logType? : LogType , portal? : Portal, created_at? : string ) {
+  constructor( id? : number , client? : Client , log_type? : LogType , portal? : Portal, created_at? : string ) {
 
     this.id = id ? id : 0 ;
     this.client = client ? client : new Client() ;
-    this.logType = logType ? logType : new LogType() ;
+    this.log_type = log_type ? log_type : new LogType() ;
     this.portal = portal ? portal : new Portal() ;
     this.created_at = created_at ? created_at : '' ;
 

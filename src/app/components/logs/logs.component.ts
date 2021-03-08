@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Log } from 'src/app/models/Log.model';
+import { MainService } from 'src/app/services/main.service';
 
 @Component({
   selector: 'app-logs',
@@ -9,9 +11,16 @@ export class LogsComponent implements OnInit {
 
   logs : Log[] = [];
 
-  constructor() { }
+  constructor( private mainService : MainService ) { }
 
   ngOnInit(): void {
+
+    this.mainService.logs().subscribe( ( resp : any ) => {
+      let data = resp.body;
+      for (const log of data) {
+        this.logs.push(log);
+      }
+    });
 
   }
 

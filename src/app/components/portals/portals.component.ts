@@ -23,10 +23,8 @@ export class PortalsComponent implements OnInit {
   initComponent(){
     this.portals = [];
     this.portalService.getPortals().subscribe( (data : any) => {
-      console.log(data);
       for (const item of data) {
-        let portal = new Portal(item.id, item.name, item.dhcp_client, item.address_list);
-        this.portals.push(portal);
+        this.portals.push(item);
       }
       this.portals.sort((a, b) => Number(a.dhcp_client.slice(1)) - Number(b.dhcp_client.slice(1)));
     });
