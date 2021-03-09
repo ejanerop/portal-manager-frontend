@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsernamePipe } from './pipes/username.pipe';
 import { LogsComponent } from './components/logs/logs.component';
 import { Globals } from './util/global';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { Globals } from './util/global';
     EditComponent,
     EditClientComponent,
     UsernamePipe,
-    LogsComponent
+    LogsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
