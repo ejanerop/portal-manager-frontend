@@ -5,6 +5,7 @@ import { interval } from 'rxjs';
 import { Portal } from 'src/app/models/portal.model';
 import { ClientsService } from 'src/app/services/clients.service';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -48,7 +49,34 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-
+    Swal.fire({
+      icon : 'question',
+      title : 'Está seguro que desea cerrar sesión?',
+      allowOutsideClick : false,
+      showCancelButton : true,
+      confirmButtonColor : 'primary',
+      confirmButtonText : 'Sí',
+      cancelButtonText : 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.authService.logout().subscribe( (resp:any) => {
+          if (resp.status == 204) {
+            this.router.navigateByUrl('/home');
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true
+            })
+            Toast.fire({
+              icon: 'info',
+              title: 'Sesión cerrado con éxito'
+            });
+          }
+        });
+      }
+    });
   }
 
   isAuth(){
