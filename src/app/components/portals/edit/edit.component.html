@@ -2,7 +2,6 @@
   <h1 class="text-center" *ngIf="loading">...</h1>
   <h1 class="text-center" *ngIf="!new && !loading">Editar portal: <small>{{portal.name}}</small></h1>
   <h1 class="text-center" *ngIf="new && !loading">Crear nuevo portal</h1>
-  <hr>
 
   <div class="row text-right">
     <div class="col">
@@ -29,7 +28,7 @@
       <form [formGroup]="form" (ngSubmit) = "save()">
         <div class="mb-3">
           <label for="name" class="form-label"> <h5>Nombre</h5> </label>
-          <input type="name" name="name" id="name" class="form-control form-control-lg" formControlName = "name" [class.is-invalid]="invalid('name')"  placeholder="Nombre de portal">
+          <input type="text" name="name" id="name" class="form-control form-control-lg" formControlName = "name" [class.is-invalid]="invalid('name')"  placeholder="Nombre de portal">
           <div class="invalid-feedback">
             El nombre es obligatorio
           </div>

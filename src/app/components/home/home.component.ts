@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Client } from 'src/app/models/client.model';
 import { Portal } from 'src/app/models/portal.model';
@@ -10,9 +10,12 @@ import Swal from "sweetalert2";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
+
+  loading : boolean = false;
 
   client : Client = new Client();
   currentPortal : Portal = new Portal();
@@ -20,11 +23,15 @@ export class HomeComponent implements OnInit {
   constructor( private clientService : ClientsService , private portalService : PortalsService , private router : Router, public global : Globals ) { }
 
   ngOnInit(): void {
+    this.loading = true;
+
     this.clientService.getClientByIp().subscribe((resp : any) =>{
-      this.client = resp.body;
-    });
-    this.clientService.currentPortal().subscribe((resp : any) => this.currentPortal = resp.body ,
-    (error :any) => console.log(error));
+      this.client = resp.body.client;
+      this.currentPortal = resp.body.portal;
+      this.loading = false;
+      console.log(this.loading);
+
+    }, (error :any) => console.log(error));
 
   }
 

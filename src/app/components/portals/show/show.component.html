@@ -1,0 +1,95 @@
+<div class="container">
+  <h1 class="text-center" *ngIf="loading">...</h1>
+  <h1 class="text-center" *ngIf="!loading">{{portal.name}}</h1>
+
+  <div class="row text-right">
+    <div class="col">
+      <button class="btn btn-danger" [routerLink]="['/portal']">
+        <i class="fa fa-arrow-left"></i> Atrás
+      </button>
+    </div>
+  </div>
+
+  <hr>
+
+  <div *ngIf="loading" class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="alert alert-info text-center" role="alert">
+        <p>
+          <i class="fa fa-spin fa-spinner fa-4x"></i>
+        </p>
+        <h2 class="text-center">Cargando</h2>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!loading" class="row justify-content-center">
+    <div class="col-md-5">
+      <div class="mb-3 row">
+        <label for="name" class="col-sm-4 col-form-label"> <h5>Nombre</h5> </label>
+        <div class="col-sm-8">
+          <input type="text" readonly name="name" value="{{portal.name}}" id="name" class="form-control form-control-lg">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="address_list" class="col-sm-6 col-form-label"> <h5>Address list</h5> </label>
+        <div class="col-sm-6">
+          <input type="text" readonly id="address_list" value="{{portal.address_list}}" class="form-control form-control-lg">
+        </div>
+
+      </div>
+      <div class="mb-5 row">
+        <label for="dhcp_client" class="col-sm-8 col-form-label"> <h5>DHCP client</h5> </label>
+        <div class="col-sm-4">
+          <input type="text" readonly id="dhcp_client" value="{{portal.dhcp_client}}" class="form-control form-control-lg">
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="mb-3 row justify-content-center">
+      <div class="col-sm-5">
+        <h3 class="mb-3">Usuarios registrados al portal</h3>
+        <table class="table table-hover table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th class="w-15">Ip</th>
+              <th class="w-25">Nick</th>
+              <th class="w-25">Desc</th>
+              <th class="w-10">Editar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let client of portal.clients; let i = index">
+              <td>{{client.ip_address}}</td>
+              <td>{{client.nick | username}}</td>
+              <td>{{client.desc | username}}</td>
+              <td>
+                <button class="btn btn-outline-info btn-menu"    type="button" (click)="edit(client)"  ><i class="fa fa-pencil"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-5">
+        <h3 class="mb-3">Usuarios en el portal ahora</h3>
+        <table class="table table-hover table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th class="w-15">Ip</th>
+              <th class="w-25">Nick</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let client of portal.clients; let i = index">
+              <td>{{client.ip_address}}</td>
+              <td>{{client.nick | username}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+

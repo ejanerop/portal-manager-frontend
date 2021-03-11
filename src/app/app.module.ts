@@ -16,6 +16,8 @@ import { UsernamePipe } from './pipes/username.pipe';
 import { LogsComponent } from './components/logs/logs.component';
 import { Globals } from './util/global';
 import { LoginComponent } from './components/login/login.component';
+import { FeaturesComponent } from './components/home/features/features.component';
+import { ShowComponent } from './components/portals/show/show.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { LoginComponent } from './components/login/login.component';
     EditClientComponent,
     UsernamePipe,
     LogsComponent,
-    LoginComponent
+    LoginComponent,
+    FeaturesComponent,
+    ShowComponent
   ],
   imports: [
     BrowserModule,

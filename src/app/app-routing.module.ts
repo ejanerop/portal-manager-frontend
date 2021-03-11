@@ -8,6 +8,7 @@ import { EditComponent as EditClientComponent } from './components/clients/edit/
 import { LogsComponent } from './components/logs/logs.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ShowComponent } from './components/portals/show/show.component';
 
 const routes: Routes = [
   {path : 'home', component : HomeComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path : 'log', component : LogsComponent},
   {path : 'login', component : LoginComponent},
   {path : 'portal/:id', component : EditPortalComponent, canActivate : [AuthGuard]},
+  {path : 'portal/:id/show', component : ShowComponent, canActivate : [AuthGuard]},
   {path : 'client/:id', component : EditClientComponent, canActivate : [AuthGuard]},
   {path : '**', pathMatch : 'full', redirectTo : 'home'},
 ];

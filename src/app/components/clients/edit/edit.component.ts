@@ -42,13 +42,7 @@ export class EditComponent implements OnInit {
       } else if(Number(this.id) != null && Number(this.id) > 0) {
         this.clientService.getClient(this.id).subscribe((resp : any) => {
           console.log(resp);
-          this.client.id = resp.body.id;
-          this.client.nick = resp.body.nick;
-          this.client.ip_address = resp.body.ip_address;
-          this.client.client_type = new ClientType(resp.body.client_type.id);
-          for (const portal of resp.body.portals) {
-            this.client.portals.push(new Portal(portal.id, portal.name, portal.dhcp_client, portal.address_list));
-          }
+          this.client = resp.body;
           this.new = false;
           this.initPortals(false);
           this.reset();
@@ -86,6 +80,7 @@ export class EditComponent implements OnInit {
       this.form.reset({
         'nick' : this.client.nick,
         'ip_address' : this.client.ip_address,
+        'desc' : this.client.desc,
         'type' : this.client.client_type.id
       });
       this.portalControls.at(0).setValue(portals[0]);
