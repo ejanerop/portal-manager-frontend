@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class Globals {
 
   private isBusy : boolean = false;
-  private _url : string = 'http://localhost:8001/api';
+  private _url : string = environment.api_url;
 
   triggerTimeout() {
     this.isBusy = true;
