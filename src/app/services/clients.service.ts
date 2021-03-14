@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Client } from '../models/client.model';
 import { Globals } from '../util/global';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -9,11 +10,11 @@ import { Globals } from '../util/global';
 })
 export class ClientsService {
 
-  constructor( private http : HttpClient , public global : Globals ) { }
+  constructor( private http : HttpClient , public global : Globals , private authService : AuthService ) { }
 
   getClientType() {
 
-    const url = `${this.global.url}/client_type`;
+    const url = `${this.global.url}/client_type?api_token=${this.authService.token}`;
 
     return this.http.get(url);
 
@@ -21,7 +22,7 @@ export class ClientsService {
 
   getClients() {
 
-    const url = `${this.global.url}/client`;
+    const url = `${this.global.url}/client?api_token=${this.authService.token}`;
 
     return this.http.get(url, {observe : 'response'});
 
@@ -29,7 +30,7 @@ export class ClientsService {
 
   getClient( id : string ) {
 
-    const url = `${this.global.url}/client/${id}`;
+    const url = `${this.global.url}/client/${id}?api_token=${this.authService.token}`;
 
     return this.http.get(url, {observe : 'response'});
 
@@ -43,16 +44,10 @@ export class ClientsService {
 
   }
 
-  currentPortal() {
-
-    const url = `${this.global.url}/ip_portal`;
-
-    return this.http.get(url, {observe : 'response'});
-
-  }
-
   edit(data : any) {
     const url = data.id == 0 ? `${this.global.url}/client` : `${this.global.url}/client/${data.id}`;
+
+    data.api_token = this.authService.token;
 
     if (data.id == 0) {
       return this.http.post(url , data, {observe : 'response'});
@@ -64,7 +59,7 @@ export class ClientsService {
 
   delete( client : Client ) {
 
-    const url = `${this.global.url}/client/${client.id}`;
+    const url = `${this.global.url}/client/${client.id}?api_token=${this.authService.token}`;
 
     return this.http.delete(url, {observe : 'response'});
 

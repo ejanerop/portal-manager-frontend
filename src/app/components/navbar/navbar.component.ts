@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.setIp();
-    this.clientsService.currentPortal().subscribe((resp : any) => this.currentPortal = resp.body ,
+    this.clientsService.getClientByIp().subscribe((resp : any) => this.currentPortal = resp.body.portal ,
                                                   (error :any) => console.log('Servicio inactivo.'));
     const secondsCounter = interval(5000);
     let that = this;

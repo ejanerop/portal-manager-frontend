@@ -71,6 +71,10 @@ export class AuthService {
 
   }
 
+  get token() {
+    return this.api_token;
+  }
+
   isAuth() {
     if ( this.api_token != null && this.api_token.length < 2  ) {
       return false;
