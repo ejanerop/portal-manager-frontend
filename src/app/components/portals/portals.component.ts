@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Portal } from 'src/app/models/portal.model';
 import { PortalsService } from 'src/app/services/portals.service';
 import { Globals } from 'src/app/util/global';
+import { SwalHelper } from 'src/app/util/swalHelper';
 import Swal from "sweetalert2";
 
 @Component({
@@ -14,7 +15,10 @@ export class PortalsComponent implements OnInit {
 
   portals : Portal[] = [];
 
-  constructor( private portalService : PortalsService , private router : Router, public global : Globals ) { }
+  constructor( private portalService : PortalsService ,
+               private router : Router,
+               public global : Globals,
+               private swalHelper : SwalHelper ) { }
 
   ngOnInit(): void {
     this.initComponent();
@@ -59,17 +63,7 @@ export class PortalsComponent implements OnInit {
         this.portalService.delete(portal).subscribe((resp : any) => {
           if (resp.status == 204) {
             this.initComponent();
-            const Toast = Swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 1500,
-              timerProgressBar: true
-            })
-            Toast.fire({
-              icon: 'success',
-              title: 'Portal eliminado con éxito'
-            });
+            this.swalHelper.fireToast( true , 'Portal eliminado con éxito' );
           }
         }, (error : any) => {
           let text : string = 'Hubo un problema.';
@@ -95,8 +89,7 @@ export class PortalsComponent implements OnInit {
       cancelButtonText : 'No!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('Espere.' , 'Se esta procesando su solicitud.' , 'info' );
-        Swal.showLoading();
+        this.swalHelper.showLoading('Espere.' , 'Se esta procesando su solicitud.' );
         this.portalService.close(portal).subscribe((resp : any) => {
           if (resp.status == 200) {
             Swal.fire('Correcto!','Portal cerrado con éxito.','success');

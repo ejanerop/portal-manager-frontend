@@ -6,6 +6,7 @@ import { ClientType } from 'src/app/models/client_type.model';
 import { Portal } from 'src/app/models/portal.model';
 import { ClientsService } from 'src/app/services/clients.service';
 import { PortalsService } from 'src/app/services/portals.service';
+import { SwalHelper } from 'src/app/util/swalHelper';
 import Swal from "sweetalert2";
 
 @Component({
@@ -28,7 +29,8 @@ export class EditComponent implements OnInit {
     private router : Router,
     private fb : FormBuilder,
     private clientService : ClientsService ,
-    private portalService : PortalsService ) {
+    private portalService : PortalsService ,
+    private swalHelper : SwalHelper ) {
 
       this.createForm();
     }
@@ -177,14 +179,7 @@ export class EditComponent implements OnInit {
         return;
       }
 
-      Swal.fire({
-        icon : 'info',
-        title : 'Espere',
-        text : 'Guardando info',
-        allowOutsideClick : false,
-        timer : 10000
-      });
-      Swal.showLoading();
+      this.swalHelper.showLoading( 'Espere', 'Guardando info' );
 
       let data = this.form.value;
       data.id = this.client.id;
@@ -193,10 +188,11 @@ export class EditComponent implements OnInit {
         console.log(resp);
         this.router.navigateByUrl('/client');
         if (resp.status == 201) {
-          this.fireToast(true, ' Usuario creado con éxito! ' )
+          this.swalHelper.fireToast(true, ' Usuario creado con éxito! ' )
         }
         if (resp.status == 204) {
-          this.fireToast(true, ' Usuario modificado con éxito! ' )
+
+          this.swalHelper.fireToast(true, ' Usuario modificado con éxito! ' )
         }
       }, error => {
         console.log(error);
@@ -209,24 +205,6 @@ export class EditComponent implements OnInit {
         });
       });
 
-    }
-
-    fireToast(success : boolean, text : string){
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-      })
-      Toast.fire({
-        icon: success ? 'success' : 'error',
-        title: text
-      });
     }
 
   }

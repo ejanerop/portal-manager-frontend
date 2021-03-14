@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Client } from 'src/app/models/client.model';
-import { ClientType } from 'src/app/models/client_type.model';
-import { Portal } from 'src/app/models/portal.model';
 import { ClientsService } from 'src/app/services/clients.service';
 import { Globals } from 'src/app/util/global';
+import { SwalHelper } from 'src/app/util/swalHelper';
 import Swal from "sweetalert2";
 
 @Component({
@@ -18,7 +17,7 @@ export class ClientsComponent implements OnInit {
   allClients : Client[] = [];
   termino : string = '';
 
-  constructor( private clientService : ClientsService , private router : Router ,  public global : Globals  ) { }
+  constructor( private clientService : ClientsService , private router : Router ,  public global : Globals , public swalHelper : SwalHelper ) { }
 
   ngOnInit(): void {
     this.initComponent();
@@ -58,22 +57,11 @@ export class ClientsComponent implements OnInit {
       cancelButtonText : 'No!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire( 'Espere.' , 'Se esta procesando su solicitud.' , 'info' );
-        Swal.showLoading();
+        this.swalHelper.showLoading('Espere.' , 'Se esta procesando su solicitud.');
         this.clientService.delete(client).subscribe((resp : any) => {
           if (resp.status == 204) {
             this.initComponent();
-            const Toast = Swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 1500,
-              timerProgressBar: true
-            })
-            Toast.fire({
-              icon: 'success',
-              title: 'Usuario eliminado con éxito'
-            });
+            this.swalHelper.fireToast( true , 'Usuario eliminado con éxito' );
           }
         }, (error : any) => {
           let text : string = 'Hubo un problema.';

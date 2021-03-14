@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { SwalHelper } from 'src/app/util/swalHelper';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,7 +14,10 @@ export class LoginComponent implements OnInit {
 
   form : FormGroup;
 
-  constructor(private service : AuthService, private fb : FormBuilder, private router : Router) {
+  constructor( private service : AuthService,
+               private fb : FormBuilder,
+               private router : Router ,
+               private swalHelper : SwalHelper) {
     this.form = new FormGroup({});
     this.createForm();
    }
@@ -57,17 +61,7 @@ export class LoginComponent implements OnInit {
     this.service.login(this.form.value).subscribe(
       (data : any)=>{
         this.router.navigateByUrl('/home');
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 1500,
-          timerProgressBar: true
-        })
-        Toast.fire({
-          icon: 'success',
-          title: 'Inicio de sesión exitoso!'
-        });
+        this.swalHelper.fireToast(true , 'Inicio de sesión exitoso!');
       },error=>{
         if (error.status == 422){
           Swal.fire({

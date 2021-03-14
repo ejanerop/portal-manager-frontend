@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Portal } from 'src/app/models/portal.model';
 import { PortalsService } from 'src/app/services/portals.service';
+import { SwalHelper } from 'src/app/util/swalHelper';
 import Swal from "sweetalert2";
 
 @Component({
@@ -18,7 +19,11 @@ export class EditComponent implements OnInit {
   loading : boolean = true;
   portal : Portal = new Portal();
 
-  constructor( private route : ActivatedRoute, private router : Router, private fb : FormBuilder, private service : PortalsService ) {
+  constructor( private route : ActivatedRoute,
+               private router : Router,
+               private fb : FormBuilder,
+               private service : PortalsService,
+               private swalHelper : SwalHelper ) {
     this.form = this.fb.group({
       'name' : ['', Validators.required],
       'address_list' : ['', [Validators.required]],
@@ -50,7 +55,6 @@ export class EditComponent implements OnInit {
     return this.form.get(control)?.invalid && this.form.get(control)?.touched;
   }
 
-
   reset() {
     this.form.reset({
       name : this.portal.name,
@@ -68,14 +72,7 @@ export class EditComponent implements OnInit {
       return;
     }
 
-    Swal.fire({
-      icon : 'info',
-      title : 'Espere',
-      text : 'Guardando info',
-      allowOutsideClick : false,
-      timer : 10000
-    });
-    Swal.showLoading();
+    this.swalHelper.showLoading('Espere' , 'Guardando info');
 
     let data = this.form.value;
     data.id = this.portal.id;
@@ -84,10 +81,10 @@ export class EditComponent implements OnInit {
       console.log(resp);
       this.router.navigateByUrl('/portal');
       if (resp.status == 201) {
-        this.fireToast(true, ' Portal creado con éxito! ' )
+        this.swalHelper.fireToast(true, ' Portal creado con éxito! ' )
       }
       if (resp.status == 204) {
-        this.fireToast(true, ' Portal modificado con éxito! ' )
+        this.swalHelper.fireToast(true, ' Portal modificado con éxito! ' )
       }
     }, error => {
       console.log(error);
@@ -102,22 +99,5 @@ export class EditComponent implements OnInit {
 
   }
 
-  fireToast(success : boolean, text : string){
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-    Toast.fire({
-      icon: success ? 'success' : 'error',
-      title: text
-    });
-  }
 
 }

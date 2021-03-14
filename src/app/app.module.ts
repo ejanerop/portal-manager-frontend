@@ -18,6 +18,7 @@ import { Globals } from './util/global';
 import { LoginComponent } from './components/login/login.component';
 import { FeaturesComponent } from './components/home/features/features.component';
 import { ShowComponent } from './components/portals/show/show.component';
+import { SwalHelper } from './util/swalHelper';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ShowComponent } from './components/portals/show/show.component';
     HttpClientModule
   ],
   providers: [
-    Globals
+    Globals,
+    SwalHelper
   ],
   bootstrap: [AppComponent]
 })

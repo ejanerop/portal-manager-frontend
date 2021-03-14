@@ -22,4 +22,6 @@ export class Globals {
     return this._url;
   }
 
+
+
 }

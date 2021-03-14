@@ -6,6 +6,7 @@ import { Portal } from 'src/app/models/portal.model';
 import { ClientsService } from 'src/app/services/clients.service';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
+import { SwalHelper } from 'src/app/util/swalHelper';
 
 @Component({
   selector: 'app-navbar',
@@ -22,7 +23,8 @@ export class NavbarComponent implements OnInit {
   constructor( public router: Router,
                private mainService : MainService,
                private clientsService : ClientsService ,
-               private authService : AuthService) { }
+               private authService : AuthService ,
+               private swalHelper : SwalHelper) { }
 
   ngOnInit(): void {
     this.setIp();
@@ -62,17 +64,7 @@ export class NavbarComponent implements OnInit {
         this.authService.logout().subscribe( (resp:any) => {
           if (resp.status == 204) {
             this.router.navigateByUrl('/home');
-            const Toast = Swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 1500,
-              timerProgressBar: true
-            })
-            Toast.fire({
-              icon: 'info',
-              title: 'Sesión cerrado con éxito'
-            });
+            this.swalHelper.fireToast( true , 'Sesión cerrado con éxito');
           }
         });
       }
