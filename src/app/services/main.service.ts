@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Globals } from '../util/global';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Globals } from '../util/global';
 export class MainService {
 
 
-  constructor( private http : HttpClient , public global : Globals ) { }
+  constructor( private http : HttpClient , public global : Globals , private authService : AuthService ) { }
 
 
   getQuery( query : string ){
@@ -34,7 +35,7 @@ export class MainService {
 
   logs() {
 
-    return this.getQuery('log');
+    return this.getQuery(`log?api_token=${this.authService.token}`);
 
   }
 

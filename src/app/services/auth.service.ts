@@ -10,11 +10,9 @@ export class AuthService {
 
   api_token : string | null = '';
 
-
   constructor( private http : HttpClient , public global : Globals ) {
     this.loadToken();
   }
-
 
   login(data : any){
 
@@ -37,10 +35,9 @@ export class AuthService {
       this.removeToken();
       return resp;
     })
-    );;
+    );
 
   }
-
 
   private saveToken( idToken: string ) {
 
