@@ -7,6 +7,7 @@ import { ClientsService } from 'src/app/services/clients.service';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import { SwalHelper } from 'src/app/util/swalHelper';
+import { Globals } from 'src/app/util/global';
 
 @Component({
   selector: 'app-navbar',
@@ -24,7 +25,8 @@ export class NavbarComponent implements OnInit {
                private mainService : MainService,
                private clientsService : ClientsService ,
                private authService : AuthService ,
-               private swalHelper : SwalHelper) { }
+               private swalHelper : SwalHelper ,
+               public global : Globals) { }
 
   ngOnInit(): void {
     this.setIp();

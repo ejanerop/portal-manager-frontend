@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { Client } from '../models/client.model';
+import { Portal } from '../models/portal.model';
 
 @Injectable()
 export class Globals {
 
   private isBusy : boolean = false;
   private _url : string = environment.api_url;
+  private _client : Client = new Client();
+  private portal : Portal = new Portal();
 
   triggerTimeout() {
     this.isBusy = true;
@@ -22,6 +26,21 @@ export class Globals {
     return this._url;
   }
 
+  public get client() {
+    return this._client;
+  }
 
+  public get currentPortal() {
+    return this.portal;
+  }
+
+  setClient( client : Client ) {
+    this._client = client;
+    console.log(client);
+  }
+
+  setCurrentPortal( portal : Portal ) {
+    this.portal = portal;
+  }
 
 }
