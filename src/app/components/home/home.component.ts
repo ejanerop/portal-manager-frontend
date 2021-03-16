@@ -53,7 +53,8 @@ export class HomeComponent implements OnInit {
       Swal.fire('Correcto', 'Portal cerrado con éxito', 'success');
       this.timeout();
     },(error : any) => {
-      Swal.fire('Ups!', error.error, 'error');
+      console.log(error);
+      Swal.fire('Ups!', 'Hubo un error', 'error');
     });
   }
 
@@ -66,7 +67,8 @@ export class HomeComponent implements OnInit {
       Swal.fire('Correcto', 'Portal cerrado con éxito', 'success');
       this.timeout();
     },(error : any) => {
-      Swal.fire('Ups!', error.error, 'error');
+      console.log(error);
+      Swal.fire('Ups!', 'Hubo un error', 'error');
     });
 
   }

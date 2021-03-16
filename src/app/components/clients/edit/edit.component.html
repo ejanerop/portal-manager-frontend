@@ -37,15 +37,6 @@
             Escribe una dirección IP válida, en el rango 192.168.20.x
           </div>
         </div>
-        <div class="mb-3">
-          <label for="type" class="form-label"> <h5>Tipo de usuario</h5> </label>
-          <select name="type" id="type" formControlName="type" class="form-control form-control-lg">
-            <option *ngFor="let type of clientTypes" value="{{type.id}}">{{type.desc}}</option>
-          </select>
-          <div class="invalid-feedback">
-            Escoge un tipo
-          </div>
-        </div>
         <div class="mb-5">
           <label for="desc" class="form-label"> <h5>Nota</h5> </label>
           <textarea name="desc" id="desc" formControlName="desc" class="form-control form-control-lg" cols="3"></textarea>
@@ -69,24 +60,43 @@
           </div>
         </div>
         <div class="mb-5">
-          <label class="form-label"> <h5>Portales</h5> </label>
-          <div class="row mb-3" *ngFor="let selectedPortal of selectedPortals; let i = index" formArrayName="portals">
-            <div class="col-md-10">
-              <select name="" id="" [formControlName]="i" (change)="onPortalChange(i)" class="form-control w-100">
-                <ng-container *ngFor="let portal of portals">
-                  <option *ngIf="visible(portal.id, i)" value="{{portal.id}}">{{portal.name}}</option>
-                </ng-container>
-              </select>
-            </div>
-            <div class="col-md-2">
-              <button *ngIf="i!=0" type="button" class="btn btn-outline-danger w-100" (click)="removePortal(i)"> <i class="fa fa-trash"></i> </button>
-            </div>
+          <label class="form-label w-100"> <h5>Permisos</h5> </label>
+          <div class="form-check form-switch" *ngFor="let permission of permissions">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">{{permission.desc}}</label>
           </div>
-          <button type="button" *ngIf="selectedPortals.length < client.client_type.allowedPortals" class="btn btn-outline-success w-100" (click)="addPortal()"> <i class="fa fa-plus"></i> </button>
+        </div>
+        <div *ngIf="!loading">
+          <button class="btn btn-outline-primary btn-lg w-100" type="submit">Guardar <i class="fa fa-save"></i> </button>
         </div>
       </div>
-      <div class="col-md-6 ">
-        <button class="btn btn-outline-primary btn-lg w-100" type="submit">Guardar <i class="fa fa-save"></i> </button>
+
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label for="type" class="form-label"> <h5>Tipo de usuario</h5> </label>
+          <select name="type" id="type" formControlName="type" class="form-control form-control-lg">
+            <option *ngFor="let type of clientTypes" value="{{type.id}}">{{type.desc}}</option>
+          </select>
+          <div class="invalid-feedback">
+            Escoge un tipo
+          </div>
+        </div>
+
+        <label class="form-label"> <h5>Portales</h5> </label>
+        <div class="row mb-3" *ngFor="let selectedPortal of selectedPortals; let i = index" formArrayName="portals">
+          <div class="col-md-10">
+            <select name="" id="" [formControlName]="i" (change)="onPortalChange(i)" class="form-control w-100">
+              <ng-container *ngFor="let portal of portals">
+                <option *ngIf="visible(portal.id, i)" value="{{portal.id}}">{{portal.name}}</option>
+              </ng-container>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <button *ngIf="i!=0" type="button" class="btn btn-outline-danger w-100" (click)="removePortal(i)"> <i class="fa fa-trash"></i> </button>
+          </div>
+        </div>
+        <button type="button" *ngIf="selectedPortals.length < client.client_type.allowedPortals" class="btn btn-outline-success w-100" (click)="addPortal()"> <i class="fa fa-plus"></i> </button>
+
       </div>
     </div>
   </form>
