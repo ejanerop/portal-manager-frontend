@@ -33,7 +33,7 @@ export class Client {
     return this.client_type.allowedPortals;
   }
 
-  hasPermission( permission : string ) {
+  public hasPermission( permission : string ) {
 
       let perm = this.permissions.find(item => {item.name == permission});
 

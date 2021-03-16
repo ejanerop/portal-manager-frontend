@@ -24,7 +24,7 @@
         </li>
       </ul>
       <div class="d-flex">
-        <button class="btn btn-outline-warning btn-lg me-2"   type="button" *ngIf="global.client.hasPermission('see-portal')" disabled> Estás en el portal: {{currentPortal.name}}</button>
+        <button class="btn btn-outline-warning btn-lg me-2"   type="button" disabled> Estás en el portal: {{currentPortal.name}}</button>
         <button class="btn btn-success btn-lg me-2"           type="button" *ngIf="isConnected" disabled> <i class="fa fa-check"></i> Hay internet</button>
         <button class="btn btn-danger btn-lg me-2"            type="button" *ngIf="!isConnected" disabled> <i class="fa fa-close"></i> No hay internet</button>
         <button class="btn btn-outline-secondary btn-lg me-2 text-white" type="button" disabled> Tu ip: {{ip}}</button>
