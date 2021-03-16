@@ -36,7 +36,6 @@ export class NavbarComponent implements OnInit {
     let that = this;
     secondsCounter.subscribe( n => {
       this.mainService.pingInternet().subscribe((resp: any) => {
-        console.log(resp);
         if(resp.status == 200){
           that.isConnected = true;
         }else{

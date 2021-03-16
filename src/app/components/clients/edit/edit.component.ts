@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Client } from 'src/app/models/client.model';
 import { ClientType } from 'src/app/models/client_type.model';
+import { Permission } from 'src/app/models/permission.model';
 import { Portal } from 'src/app/models/portal.model';
 import { ClientsService } from 'src/app/services/clients.service';
 import { PortalsService } from 'src/app/services/portals.service';
@@ -22,6 +23,7 @@ export class EditComponent implements OnInit {
   loading : boolean = true;
   client : Client = new Client();
   clientTypes : ClientType[] = [];
+  permissions : Permission[] = [];
   portals : Portal[] = [];
   selectedPortals : Portal[] = [];
 
@@ -37,6 +39,7 @@ export class EditComponent implements OnInit {
 
     ngOnInit(): void {
       this.initClientTypes();
+      this.initPermissions();
       this.onTypeChange();
       this.id = this.route.snapshot.paramMap.get('id');
       if (this.id == 'new' || this.id == null ) {
@@ -115,6 +118,16 @@ export class EditComponent implements OnInit {
         for (const item of data) {
           this.clientTypes.push(new ClientType( item.id , item.type , item.desc, item.allowed_portals ) );
         }6
+        this.loading = false;
+      });
+    }
+    initPermissions() {
+      this.clientService.getPermissions().subscribe((data : any) => {
+        for (const item of data) {
+          this.permissions.push(new Permission( item.id , item.name , item.desc ) );
+        }
+        console.log(this.permissions);
+
         this.loading = false;
       });
     }

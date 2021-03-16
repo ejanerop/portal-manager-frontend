@@ -19,6 +19,13 @@ export class ClientsService {
     return this.http.get(url);
 
   }
+  getPermissions() {
+
+    const url = `${this.global.url}/permission?api_token=${this.authService.token}`;
+
+    return this.http.get(url);
+
+  }
 
   getClients() {
 
