@@ -82,7 +82,7 @@
               <button *ngIf="i!=0" type="button" class="btn btn-outline-danger w-100" (click)="removePortal(i)"> <i class="fa fa-trash"></i> </button>
             </div>
           </div>
-          <button type="button" *ngIf="selectedPortals.length < client.allowedPortals" class="btn btn-outline-success w-100" (click)="addPortal()"> <i class="fa fa-plus"></i> </button>
+          <button type="button" *ngIf="selectedPortals.length < client.client_type.allowedPortals" class="btn btn-outline-success w-100" (click)="addPortal()"> <i class="fa fa-plus"></i> </button>
         </div>
       </div>
       <div class="col-md-6 ">

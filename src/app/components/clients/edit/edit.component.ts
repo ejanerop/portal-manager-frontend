@@ -89,8 +89,6 @@ export class EditComponent implements OnInit {
       for (let index = 1; index < portals.length; index++) {
         this.portalControls.push( this.fb.control(portals[index] + '', Validators.required) );
       }
-      console.log(portals);
-
     }
 
     initPortals( fresh : boolean ) {
@@ -116,8 +114,7 @@ export class EditComponent implements OnInit {
       this.clientService.getClientType().subscribe((data : any) => {
         for (const item of data) {
           this.clientTypes.push(new ClientType( item.id , item.type , item.desc, item.allowed_portals ) );
-        }
-
+        }6
         this.loading = false;
       });
     }
@@ -148,6 +145,8 @@ export class EditComponent implements OnInit {
           this.selectedPortals.splice(-1);
           this.portalControls.removeAt( this.portalControls.length - 1 );
         }
+        console.log(this.selectedPortals);
+        console.log(this.client);
 
       });
     }

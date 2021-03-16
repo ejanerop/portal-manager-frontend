@@ -36,8 +36,6 @@ export class HomeComponent implements OnInit {
       this.currentPortal = resp.body.portal;
       this.global.setCurrentPortal(this.currentPortal);
       this.loading = false;
-      console.log(this.loading);
-
     }, (error :any) => console.log(error));
 
   }
@@ -77,7 +75,7 @@ export class HomeComponent implements OnInit {
 
     this.swalHelper.showLoading( 'Espere' , 'Cerrando portal' );
 
-    this.clientService.close(this.client).subscribe((resp : any) => {
+    this.clientService.close(this.global.client).subscribe((resp : any) => {
       console.log(resp);
       Swal.fire('Correcto', 'Portal cerrado con éxito', 'success');
       this.timeout();
