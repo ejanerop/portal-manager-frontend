@@ -64,6 +64,9 @@ export class EditComponent implements OnInit {
     get portalControls(){
       return this.form.get('portals') as FormArray;
     }
+    get permissionsControls(){
+      return this.form.get('permissions') as FormArray;
+    }
 
     createForm() {
       this.form = this.fb.group({
@@ -71,15 +74,13 @@ export class EditComponent implements OnInit {
         ip_address : ['192.168.20.', [Validators.required, Validators.pattern('192\.168\.20\.(25[0-4]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[1-9])')]],
         type : ['1', [Validators.required]],
         desc : [''],
-        portals: this.fb.array([ ['1', Validators.required] ])
+        portals: this.fb.array([ ['1', Validators.required] ]),
+        permissions: this.fb.array([]),
       });
     }
 
     reset() {
       this.selectedPortals = this.client.portals;
-      console.log('Selected portals');
-      console.log(this.selectedPortals);
-
       let portals : number[] = [];
       this.selectedPortals.forEach(portal => portals.push(portal.id));
       this.form.reset({
@@ -91,6 +92,9 @@ export class EditComponent implements OnInit {
       this.portalControls.at(0).setValue(portals[0]);
       for (let index = 1; index < portals.length; index++) {
         this.portalControls.push( this.fb.control(portals[index] + '', Validators.required) );
+      }
+      for (const permission of this.client.permissions) {
+        this.permissionsControls.push( this.fb.control(permission.id) );
       }
     }
 
@@ -126,7 +130,6 @@ export class EditComponent implements OnInit {
         for (const item of data) {
           this.permissions.push(new Permission( item.id , item.name , item.desc ) );
         }
-        console.log(this.permissions);
 
         this.loading = false;
       });
@@ -180,6 +183,21 @@ export class EditComponent implements OnInit {
       let portal = this.portals.find(portal => portal.id == id);
       this.selectedPortals[i] = portal ? portal : this.portals[0];
 
+    }
+
+    updatePermissions(event : any , id : number) {
+      if(event.target.checked) {
+        this.permissionsControls.push(this.fb.control(id));
+      }else{
+        for (let control of this.permissionsControls.controls) {
+          if(control.value == id) { this.permissionsControls.removeAt(this.permissionsControls.controls.indexOf(control))}
+        }
+      }
+      console.log(event.target.checked + ' : ' + id);
+    }
+
+    checked( id : number ) {
+      return this.permissionsControls.controls.some(control => control.value == id);
     }
 
     save() {
