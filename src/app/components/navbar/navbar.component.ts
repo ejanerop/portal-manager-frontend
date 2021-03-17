@@ -80,4 +80,8 @@ export class NavbarComponent implements OnInit {
     this.mainService.getIp().subscribe((data :any) => this.ip = data.body);
   }
 
+  userCan( permission : string ) {
+    return this.global.client.hasPermission(permission);
+  }
+
 }

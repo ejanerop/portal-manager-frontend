@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
 import { Client } from 'src/app/models/client.model';
 import { Portal } from 'src/app/models/portal.model';
 import { ClientsService } from 'src/app/services/clients.service';
@@ -23,13 +22,17 @@ export class HomeComponent implements OnInit {
 
   constructor( private clientService : ClientsService ,
                private portalService : PortalsService ,
-               private router : Router,
                public global : Globals ,
-               private swalHelper : SwalHelper) { }
+               private swalHelper : SwalHelper ) { }
 
   ngOnInit(): void {
-    this.loading = true;
 
+    this.initHome();
+
+  }
+
+  initHome() {
+    this.loading = true;
     this.clientService.getClientByIp().subscribe((resp : any) =>{
       this.client = resp.body.client;
       this.global.setClient(this.client);
@@ -37,7 +40,6 @@ export class HomeComponent implements OnInit {
       this.global.setCurrentPortal(this.currentPortal);
       this.loading = false;
     }, (error :any) => console.log(error));
-
   }
 
   isActive(portal : Portal) {
@@ -52,6 +54,7 @@ export class HomeComponent implements OnInit {
       console.log(resp);
       Swal.fire('Correcto', 'Portal cerrado con éxito', 'success');
       this.timeout();
+      this.initHome();
     },(error : any) => {
       console.log(error);
       Swal.fire('Ups!', 'Hubo un error', 'error');
