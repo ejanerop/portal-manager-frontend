@@ -57,7 +57,7 @@
     <div class="col-md-5">
       <h2 class="mb-3">
         Usuarios en mi portal :
-        <i *ngIf="loading" class="fa fa-spin fa-spinner"></i>
+        <i *ngIf="global.loading" class="fa fa-spin fa-spinner"></i>
         {{'5'}}
       </h2>
       <table class="table table-bordered">
@@ -67,8 +67,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let portal of client.portals">
-            <td style="font-size: x-large;"> {{portal.name}} </td>
+          <tr *ngFor="let client of clientsInPortal">
+            <td style="font-size: x-large;"> {{client.ip_address}} </td>
           </tr>
         </tbody>
       </table>

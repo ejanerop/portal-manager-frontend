@@ -1,7 +1,7 @@
 <div class="container">
-  <h1 class="text-center" *ngIf="loading">...</h1>
-  <h1 class="text-center" *ngIf="!new && !loading">Editar usuario: <small>{{client.nick}}</small></h1>
-  <h1 class="text-center" *ngIf="new && !loading">Crear nuevo usuario</h1>
+  <h1 class="text-center" *ngIf="global.loading">...</h1>
+  <h1 class="text-center" *ngIf="!new && !global.loading">Editar usuario: <small>{{client.nick}}</small></h1>
+  <h1 class="text-center" *ngIf="new && !global.loading">Crear nuevo usuario</h1>
   <hr>
 
   <div class="row text-right">
@@ -14,7 +14,7 @@
 
   <hr>
 
-  <div *ngIf="loading" class="row justify-content-center">
+  <div *ngIf="global.loading" class="row justify-content-center">
     <div class="col-md-4">
       <div class="alert alert-info text-center" role="alert">
         <p>
@@ -25,7 +25,7 @@
     </div>
   </div>
   <form [formGroup]="form" (ngSubmit) = "save()">
-    <div *ngIf="!loading" class="row justify-content-center">
+    <div *ngIf="!global.loading" class="row justify-content-center">
       <div class="col-md-4">
         <div class="mb-3">
           <label for="ip_address" class="form-label"> <h5>Direccion IP</h5> </label>
@@ -70,7 +70,7 @@
             <label class="form-check-label" for="{{permission.id}}">{{permission.desc}}</label>
           </div>
         </div>
-        <div *ngIf="!loading">
+        <div *ngIf="!global.loading">
           <button class="btn btn-outline-primary btn-lg w-100" type="submit">Guardar <i class="fa fa-save"></i> </button>
         </div>
       </div>

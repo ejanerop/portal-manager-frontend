@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Portal } from 'src/app/models/portal.model';
 import { PortalsService } from 'src/app/services/portals.service';
+import { Globals } from 'src/app/util/global';
 import { SwalHelper } from 'src/app/util/swalHelper';
 import Swal from "sweetalert2";
 
@@ -16,14 +17,14 @@ export class EditComponent implements OnInit {
   form : FormGroup;
   id : string | null = '2';
   new : boolean = true;
-  loading : boolean = true;
   portal : Portal = new Portal();
 
   constructor( private route : ActivatedRoute,
                private router : Router,
                private fb : FormBuilder,
                private service : PortalsService,
-               private swalHelper : SwalHelper ) {
+               private swalHelper : SwalHelper,
+               public global : Globals ) {
     this.form = this.fb.group({
       'name' : ['', Validators.required],
       'address_list' : ['', [Validators.required]],
@@ -34,7 +35,7 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id == 'new' || this.id == null ) {
-      this.loading = false;
+      this.global.setLoading(false);
     } else if(Number(this.id) != null && Number(this.id) > 0) {
       this.service.getPortal(this.id).subscribe((resp : any) => {
         console.log(resp);
@@ -43,7 +44,7 @@ export class EditComponent implements OnInit {
         this.portal.address_list = resp.body.address_list;
         this.portal.dhcp_client = resp.body.dhcp_client;
         this.new = false;
-        this.loading = false;
+        this.global.setLoading(false);
         this.reset();
       });
     }else{

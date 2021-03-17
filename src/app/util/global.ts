@@ -7,6 +7,7 @@ import { Portal } from '../models/portal.model';
 export class Globals {
 
   private isBusy : boolean = false;
+  private _loading : boolean = false;
   private _url : string = environment.api_url;
   private _client : Client = new Client();
   private portal : Portal = new Portal();
@@ -20,6 +21,10 @@ export class Globals {
 
   public get busy() {
     return this.isBusy;
+  }
+
+  public get loading() {
+    return this._loading;
   }
 
   public get url() {
@@ -41,6 +46,10 @@ export class Globals {
 
   setCurrentPortal( portal : Portal ) {
     this.portal = portal;
+  }
+
+  setLoading(val : boolean){
+    this._loading = val;
   }
 
 }

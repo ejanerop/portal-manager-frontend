@@ -7,6 +7,7 @@ import { Permission } from 'src/app/models/permission.model';
 import { Portal } from 'src/app/models/portal.model';
 import { ClientsService } from 'src/app/services/clients.service';
 import { PortalsService } from 'src/app/services/portals.service';
+import { Globals } from 'src/app/util/global';
 import { SwalHelper } from 'src/app/util/swalHelper';
 import Swal from "sweetalert2";
 
@@ -20,7 +21,6 @@ export class EditComponent implements OnInit {
   form : FormGroup = new FormGroup({});
   id : string | null = '2';
   new : boolean = true;
-  loading : boolean = true;
   client : Client = new Client();
   clientTypes : ClientType[] = [];
   permissions : Permission[] = [];
@@ -32,7 +32,8 @@ export class EditComponent implements OnInit {
     private fb : FormBuilder,
     private clientService : ClientsService ,
     private portalService : PortalsService ,
-    private swalHelper : SwalHelper ) {
+    private swalHelper : SwalHelper,
+    public global :Globals ) {
 
       this.createForm();
     }
@@ -105,14 +106,14 @@ export class EditComponent implements OnInit {
             this.portals.push(new Portal( item.id , item.name , item.dhcp_client , item.address_list ) );
           }
           this.selectedPortals.push(this.portals[0]);
-          this.loading = false;
+          this.global.setLoading(false);
         });
       }else{
         this.portalService.getPortals().subscribe((data : any) => {
           for (const item of data) {
             this.portals.push(new Portal( item.id , item.name , item.dhcp_client , item.address_list ) );
           }
-          this.loading = false;
+          this.global.setLoading(false);
         });
       }
     }
@@ -122,7 +123,7 @@ export class EditComponent implements OnInit {
         for (const item of data) {
           this.clientTypes.push(new ClientType( item.id , item.type , item.desc, item.allowed_portals ) );
         }6
-        this.loading = false;
+        this.global.setLoading(false);
       });
     }
     initPermissions() {
@@ -131,7 +132,7 @@ export class EditComponent implements OnInit {
           this.permissions.push(new Permission( item.id , item.name , item.desc ) );
         }
 
-        this.loading = false;
+        this.global.setLoading(false);
       });
     }
 

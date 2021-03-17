@@ -27,6 +27,14 @@ export class PortalsService {
 
   }
 
+  getClientsIn( portal : Portal) {
+
+    const url = `${this.global.url}/client_in_portal/${portal.id}?api_token=${this.authService.token}`;
+
+    return this.http.get(url, {observe : 'response'});
+
+  }
+
   edit( data : any ) {
 
     const url = data.id == 0 ? `${this.global.url}/portal` : `${this.global.url}/portal/${data.id}`;

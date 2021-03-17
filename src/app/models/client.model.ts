@@ -33,7 +33,7 @@ export class Client {
     return this.client_type.allowedPortals;
   }
 
-  hasPermission( permission : string ) {
+  public hasPermission( permission : string ) {
 
     return this.permissions.some(item => {item.name == permission});
 

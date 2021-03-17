@@ -18,6 +18,7 @@ export class NavbarComponent implements OnInit {
 
   ip : string = '';
   isConnected = false;
+  loading = this.global.loading;
   asked :boolean = false;
   currentPortal : Portal = new Portal();
 
@@ -80,8 +81,9 @@ export class NavbarComponent implements OnInit {
     this.mainService.getIp().subscribe((data :any) => this.ip = data.body);
   }
 
-  userCan( permission : string ) {
-    return this.global.client.hasPermission(permission);
+  async userCan( permission : string ) {
+
+    return this.global.client?.permissions.some(item => {item.name == permission});
   }
 
 }
