@@ -58,7 +58,7 @@
       <h2 class="mb-3">
         Usuarios en mi portal :
         <i *ngIf="global.loading" class="fa fa-spin fa-spinner"></i>
-        {{'5'}}
+        <ng-container *ngIf="!global.loading"> {{clientsInPortal.length}} </ng-container>
       </h2>
       <table class="table table-bordered">
         <thead>

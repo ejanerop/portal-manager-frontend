@@ -62,7 +62,9 @@ export class HomeComponent implements OnInit {
         console.log(resp);
         Swal.fire('Correcto', 'Portal cerrado con éxito', 'success');
         this.timeout();
-        this.initHome();
+        setTimeout(() => {
+          this.initHome();
+        }, 16000);
       },(error : any) => {
         console.log(error);
         Swal.fire('Ups!', 'Hubo un error', 'error');

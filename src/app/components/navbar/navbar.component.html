@@ -24,7 +24,8 @@
         </li>
       </ul>
       <div class="d-flex">
-        <button class="btn btn-outline-warning btn-lg me-2" type="button" *ngIf="(isAuth()) && !global.loading" disabled> Estás en el portal: {{currentPortal.name}}</button>
+        <button class="btn btn-outline-warning btn-lg me-2" type="button" *ngIf="(isAuth()) && !(global.loading || global.busy)" disabled> Estás en el portal: {{global.currentPortal.name}}</button>
+        <button class="btn btn-outline-warning btn-lg me-2" type="button" *ngIf="(isAuth()) && (global.loading || global.busy)" disabled> <i class="fa fa-spin fa-spinner"></i></button>
 
         <button class="btn btn-success btn-lg me-2" type="button" *ngIf="isConnected" disabled> <i class="fa fa-check"></i> Hay internet </button>
         <button class="btn btn-danger btn-lg me-2" type="button" *ngIf="!isConnected" disabled> <i class="fa fa-close"></i> No hay internet </button>

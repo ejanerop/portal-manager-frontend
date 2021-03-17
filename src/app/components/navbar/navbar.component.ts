@@ -20,19 +20,15 @@ export class NavbarComponent implements OnInit {
   isConnected = false;
   loading = this.global.loading;
   asked :boolean = false;
-  currentPortal : Portal = new Portal();
 
   constructor( public router: Router,
                private mainService : MainService,
-               private clientsService : ClientsService ,
                private authService : AuthService ,
                private swalHelper : SwalHelper ,
                public global : Globals) { }
 
   ngOnInit(): void {
     this.setIp();
-    this.clientsService.getClientByIp().subscribe((resp : any) => this.currentPortal = resp.body.portal ,
-                                                  (error :any) => console.log('Servicio inactivo.'));
     const secondsCounter = interval(5000);
     let that = this;
     secondsCounter.subscribe( n => {
