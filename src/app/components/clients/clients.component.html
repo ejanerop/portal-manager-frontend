@@ -36,9 +36,12 @@
         <td>
           <button class="btn btn-outline-info btn-menu"    type="button" (click)="edit(client)"  ><i class="fa fa-pencil"></i></button>
           <button class="btn btn-outline-danger btn-menu"  type="button" (click)="delete(client)"><i class="fa fa-trash" ></i></button>
-          <button class="btn btn-outline-warning btn-menu" type="button" (click)="close(client)" [disabled]="global.busy">
+          <button id="asd" aria-labelledby="tooltip" class="btn btn-outline-warning btn-menu" type="button" (click)="close(client)" [disabled]="global.busy">
             <i class="fa" [ngClass]="{ 'fa-close' :  !global.busy, 'fa-spin fa-spinner' : global.busy }" ></i>
           </button>
+          <div id="tooltip" role="tooltip">
+            Cerrar
+          </div>
         </td>
       </tr>
     </tbody>

@@ -41,30 +41,38 @@ export class HomeComponent implements OnInit {
         this.currentPortal = resp.body.portal;
         this.global.setCurrentPortal(this.currentPortal);
         this.portalService.getClientsIn(this.currentPortal).subscribe((resp : any) => {
+          this.clientsInPortal = []
           for (const item of resp.body) {
             this.clientsInPortal.push(item);
           }
           console.log(this.clientsInPortal);
           this.global.setLoading(false);
         });
-      }, (error :any) => console.log(error));
+      }, (error :any) => {
+        Swal.fire('Ups! Hubo un problema.', 'Intenta refrescar la página en 15 segundos' , 'error');
+        this.global.setLoading(false);
+      });
     }
 
     isActive(portal : Portal) {
       return portal.id == this.currentPortal.id;
     }
 
+    get disabled() {
+      return this.global.busy || this.global.loading
+    }
+
     changeTo( portal : Portal ) {
 
-      this.swalHelper.showLoading( 'Espere' , 'Cambiando a portal' + portal.name );
+      this.swalHelper.showLoading( 'Espere' , 'Cambiando a portal ' + portal.name );
 
       this.portalService.change(portal).subscribe((resp : any) => {
         console.log(resp);
-        Swal.fire('Correcto', 'Portal cerrado con éxito', 'success');
+        Swal.fire('Correcto', 'Portal cambiado con éxito', 'success');
         this.timeout();
         setTimeout(() => {
           this.initHome();
-        }, 16000);
+        }, 17000);
       },(error : any) => {
         console.log(error);
         Swal.fire('Ups!', 'Hubo un error', 'error');

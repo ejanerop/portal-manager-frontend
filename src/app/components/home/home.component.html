@@ -4,17 +4,17 @@
       <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
       <div class="container">
         <div class="carousel-caption">
-          <h1>Cerrar sesión</h1>
           <p></p>
-          <p><button class="btn btn-lg btn-danger" (click)="closeCurrent()" role="button" [disabled]="global.busy">
-            <i class="fa" [ngClass]="{ 'fa-wifi' :  !global.busy, 'fa-spin fa-spinner' : global.busy }"></i>
-            Cerrar sesión
-          </button>
-        </p>
+          <p>
+            <button class="btn btn-lg btn-danger" (click)="closeCurrent()" role="button" [disabled]="disabled">
+              <i *ngIf="disabled" class="fa fa-spin fa-spinner fa-4x"></i>
+              <h1>Cerrar sesión</h1>
+            </button>
+          </p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 <div class="container marketing">
@@ -40,13 +40,13 @@
             <td style="font-size: x-large;"> {{portal.name}} </td>
             <td>
               <button class="btn btn-outline-primary btn-menu" (click)="changeTo(portal)" [disabled]="isActive(portal) || global.busy" >
-                <i *ngIf="global.busy && !isActive(portal)" class="fa fa-spin fa-spinner"></i>
-                {{isActive(portal) ? 'Activo' : 'Cambiar'}}
+                <i *ngIf="disabled" class="fa fa-spin fa-spinner"></i>
+                <ng-container *ngIf="!disabled">{{isActive(portal) ? 'Activo' : 'Cambiar'}}</ng-container>
               </button>
             </td>
             <td>
-              <button class="btn btn-outline-danger btn-menu" (click)="close(portal)"  [disabled]="global.busy">
-                <i class="fa" [ngClass]="{ 'fa-close' :  !global.busy, 'fa-spin fa-spinner' : global.busy }"></i>
+              <button class="btn btn-outline-danger btn-menu" (click)="close(portal)"  [disabled]="disabled">
+                <i class="fa" [ngClass]="{ 'fa-close' :  !disabled, 'fa-spin fa-spinner' : disabled }"></i>
               </button>
             </td>
           </tr>
@@ -57,10 +57,16 @@
     <div class="col-md-5">
       <h2 class="mb-3">
         Usuarios en mi portal :
-        <i *ngIf="global.loading" class="fa fa-spin fa-spinner"></i>
-        <ng-container *ngIf="!global.loading"> {{clientsInPortal.length}} </ng-container>
+        <i *ngIf="global.loading || global.busy" class="fa fa-spin fa-spinner"></i>
+        <ng-container *ngIf="!(global.loading || global.busy)"> {{clientsInPortal.length}} </ng-container>
       </h2>
-      <table class="table table-bordered">
+      <div class="alert alert-info text-center" *ngIf="global.loading || global.busy" role="alert">
+        <p>
+          <i class="fa fa-spin fa-spinner fa-4x"></i>
+        </p>
+        <h2 class="text-center">Cargando</h2>
+      </div>
+      <table class="table table-bordered text-center" *ngIf="!(global.loading || global.busy)">
         <thead>
           <tr>
             <th class="w-70">Ip</th>
@@ -76,4 +82,10 @@
   </div>
 
 </div>
+<footer class="bg-light text-center text-lg-start">
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+    © 2021 Copyright:
+    <a class="text-dark" href="https://github.com/ejanerop" target="_blank">Eric Janero</a>
+  </div>
+</footer>
 

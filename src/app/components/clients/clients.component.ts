@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {createPopper} from '@popperjs/core';
 import { Client } from 'src/app/models/client.model';
 import { ClientsService } from 'src/app/services/clients.service';
 import { Globals } from 'src/app/util/global';
@@ -21,6 +22,12 @@ export class ClientsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initComponent();
+    let tooltip = document.querySelector('#tooltip') as HTMLElement;
+    let asd = document.querySelector('#asd');
+    if (asd && tooltip) {
+      createPopper(asd , tooltip , {placement : 'right'})
+
+    }
   }
 
   initComponent() {
