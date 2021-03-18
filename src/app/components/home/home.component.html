@@ -8,7 +8,7 @@
           <p>
             <button class="btn btn-lg btn-danger" (click)="closeCurrent()" role="button" [disabled]="disabled">
               <i *ngIf="disabled" class="fa fa-spin fa-spinner fa-4x"></i>
-              <h1>Cerrar sesión</h1>
+              <h1 *ngIf="!disabled">Cerrar sesión</h1>
             </button>
           </p>
         </div>
@@ -17,13 +17,7 @@
   </div>
 </div>
 
-<div class="container marketing">
-
-  <app-features></app-features>
-
-</div>
-
-<div class="container">
+<div class="container mb-5">
   <div class="row justify-content-around">
     <div class="col-md-5">
       <h2 class="mb-3">Mis portales</h2>
@@ -82,6 +76,14 @@
   </div>
 
 </div>
+
+<div class="container marketing">
+
+  <app-features></app-features>
+
+</div>
+
+
 <footer class="bg-light text-center text-lg-start">
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
     © 2021 Copyright:

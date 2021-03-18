@@ -64,6 +64,7 @@ export class HomeComponent implements OnInit {
 
     changeTo( portal : Portal ) {
 
+      this.global.setLoading(true);
       this.swalHelper.showLoading( 'Espere' , 'Cambiando a portal ' + portal.name );
 
       this.portalService.change(portal).subscribe((resp : any) => {
@@ -72,9 +73,10 @@ export class HomeComponent implements OnInit {
         this.timeout();
         setTimeout(() => {
           this.initHome();
-        }, 6000);
+        }, 8000);
       },(error : any) => {
         console.log(error);
+        this.global.setLoading(false);
         Swal.fire('Ups!', 'Hubo un error', 'error');
       });
     }

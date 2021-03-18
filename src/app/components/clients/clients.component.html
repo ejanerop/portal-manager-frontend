@@ -1,8 +1,20 @@
 <div class="container">
 
-  <div class="row mt-5">
-    <div class="col-md-6">
+  <div class="row mt-5 mb-2">
+    <div class="col-md-2">
       <h2>Usuarios</h2>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-outline-info btn-menu" type="button" disabled>
+        <i class="fa fa-pencil"></i> Editar
+      </button>
+
+      <button class="btn btn-outline-danger btn-menu" type="button" disabled>
+        <i class="fa fa-trash"></i> Eliminar
+      </button>
+      <button class="btn btn-outline-dark btn-menu" type="button" disabled>
+        <i class="fa fa-close"></i> Cerrar portal
+      </button>
     </div>
     <div class="col-md-3">
       <button class="btn btn-outline-success w-100" type="button" (click) = "new()"><i class="fa fa-plus"></i> Nuevo usuario</button>
@@ -36,12 +48,9 @@
         <td>
           <button class="btn btn-outline-info btn-menu"    type="button" (click)="edit(client)"  ><i class="fa fa-pencil"></i></button>
           <button class="btn btn-outline-danger btn-menu"  type="button" (click)="delete(client)"><i class="fa fa-trash" ></i></button>
-          <button id="asd" aria-labelledby="tooltip" class="btn btn-outline-warning btn-menu" type="button" (click)="close(client)" [disabled]="global.busy">
+          <button aria-labelledby="tooltip" class="btn btn-outline-secondary btn-menu" type="button" (click)="close(client)" [disabled]="global.busy">
             <i class="fa" [ngClass]="{ 'fa-close' :  !global.busy, 'fa-spin fa-spinner' : global.busy }" ></i>
           </button>
-          <div id="tooltip" role="tooltip">
-            Cerrar
-          </div>
         </td>
       </tr>
     </tbody>

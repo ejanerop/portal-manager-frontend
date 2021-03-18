@@ -92,6 +92,7 @@ export class PortalsComponent implements OnInit {
         this.swalHelper.showLoading('Espere.' , 'Se esta procesando su solicitud.' );
         this.portalService.close(portal).subscribe((resp : any) => {
           if (resp.status == 200) {
+            this.timeout();
             Swal.fire('Correcto!','Portal cerrado con éxito.','success');
           }
         }, (error : any) => {
@@ -102,6 +103,10 @@ export class PortalsComponent implements OnInit {
         });
       }
     });
+  }
+
+  timeout() {
+    this.global.triggerTimeout();
   }
 
 
