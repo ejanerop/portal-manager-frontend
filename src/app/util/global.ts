@@ -16,7 +16,7 @@ export class Globals {
     this.isBusy = true;
     setTimeout(() => {
       this.isBusy = false;
-    }, 15000);
+    }, 5500);
   }
 
   public get busy() {

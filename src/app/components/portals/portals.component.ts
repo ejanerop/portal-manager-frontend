@@ -39,7 +39,7 @@ export class PortalsComponent implements OnInit {
   }
 
   show( portal : Portal ){
-    this.router.navigateByUrl(`/portal/${portal.id}`)
+    this.router.navigateByUrl(`/portal/${portal.id}/show`)
   }
 
   edit( portal : Portal ) {

@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
         this.timeout();
         setTimeout(() => {
           this.initHome();
-        }, 17000);
+        }, 6000);
       },(error : any) => {
         console.log(error);
         Swal.fire('Ups!', 'Hubo un error', 'error');
