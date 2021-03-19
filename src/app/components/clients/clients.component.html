@@ -55,10 +55,7 @@
       </tr>
     </tbody>
   </table>
-  <div class="alert alert-info text-center" role="alert" *ngIf="clients.length == 0">
-    <p>
-      <i class="fa fa-spin fa-spinner fa-4x"></i>
-    </p>
-    <h2 class="text-center">No hay usuarios que mostrar</h2>
-  </div>
+
+  <app-loading [visible]="clients.length == 0"></app-loading>
+
 </div>

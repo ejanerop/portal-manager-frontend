@@ -19,6 +19,7 @@ import { LoginComponent } from './components/login/login.component';
 import { FeaturesComponent } from './components/home/features/features.component';
 import { ShowComponent } from './components/portals/show/show.component';
 import { SwalHelper } from './util/swalHelper';
+import { LoadingComponent } from './components/shared/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { SwalHelper } from './util/swalHelper';
     LogsComponent,
     LoginComponent,
     FeaturesComponent,
-    ShowComponent
+    ShowComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

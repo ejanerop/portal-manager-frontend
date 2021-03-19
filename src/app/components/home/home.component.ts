@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit {
           permissions.push(new Permission(permission.id , permission.name , permission.desc));
         }
         this.client = new Client(item.id , item.nick , item.ip_address , item.desc , item.client_type , item.portals, permissions);
+        this.client.client_type.allowedPortals = item.client_type.allowed_portals;
         this.global.setClient(this.client);
         this.currentPortal = resp.body.portal;
         this.global.setCurrentPortal(this.currentPortal);

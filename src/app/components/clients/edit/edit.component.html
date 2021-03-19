@@ -14,16 +14,8 @@
 
   <hr>
 
-  <div *ngIf="global.loading" class="row justify-content-center">
-    <div class="col-md-4">
-      <div class="alert alert-info text-center" role="alert">
-        <p>
-          <i class="fa fa-spin fa-spinner fa-4x"></i>
-        </p>
-        <h2 class="text-center">Cargando</h2>
-      </div>
-    </div>
-  </div>
+  <app-loading [visible]="global.loading"></app-loading>
+
   <form [formGroup]="form" (ngSubmit) = "save()">
     <div *ngIf="!global.loading" class="row justify-content-center">
       <div class="col-md-4">

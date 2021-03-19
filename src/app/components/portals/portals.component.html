@@ -47,11 +47,8 @@
       </tr>
     </tbody>
   </table>
-  <div class="alert alert-info text-center" role="alert" *ngIf="portals.length == 0">
-    <p>
-      <i class="fa fa-spin fa-spinner fa-4x"></i>
-    </p>
-    <h2 class="text-center">No hay portales que mostrar</h2>
-  </div>
+
+  <app-loading [visible]="portals.length == 0"></app-loading>
+
 </div>
 

@@ -12,16 +12,8 @@
 
   <hr>
 
-  <div *ngIf="global.loading" class="row justify-content-center">
-    <div class="col-md-4">
-      <div class="alert alert-info text-center" role="alert">
-        <p>
-          <i class="fa fa-spin fa-spinner fa-4x"></i>
-        </p>
-        <h2 class="text-center">Cargando</h2>
-      </div>
-    </div>
-  </div>
+  <app-loading [visible]="global.loading" ></app-loading>
+
   <div *ngIf="!global.loading" class="row justify-content-center">
     <div class="col-md-5">
       <div class="mb-3 row">
@@ -70,6 +62,12 @@
             </tr>
           </tbody>
         </table>
+        <div class="alert alert-info text-center" *ngIf="portal.clients.length == 0" role="alert">
+          <p>
+            <i class="fa fa-close fa-4x"></i>
+          </p>
+          <h2 class="text-center">Nada que mostrar</h2>
+        </div>
       </div>
       <div class="col-sm-5">
         <h3 class="mb-3">Usuarios en el portal ahora</h3>
@@ -87,6 +85,12 @@
             </tr>
           </tbody>
         </table>
+        <div class="alert alert-info text-center" *ngIf="clientsInPortal.length == 0" role="alert">
+          <p>
+            <i class="fa fa-close fa-4x"></i>
+          </p>
+          <h2 class="text-center">Nada que mostrar</h2>
+        </div>
       </div>
     </div>
   </div>

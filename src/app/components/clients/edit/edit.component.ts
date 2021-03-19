@@ -39,12 +39,14 @@ export class EditComponent implements OnInit {
     }
 
     ngOnInit(): void {
+      this.global.setLoading(true);
       this.initClientTypes();
       this.initPermissions();
       this.onTypeChange();
       this.id = this.route.snapshot.paramMap.get('id');
       if (this.id == 'new' || this.id == null ) {
         this.initPortals(true);
+        this.global.setLoading(false);
       } else if(Number(this.id) != null && Number(this.id) > 0) {
         this.clientService.getClient(this.id).subscribe((resp : any) => {
           console.log(resp);
@@ -52,8 +54,10 @@ export class EditComponent implements OnInit {
           this.new = false;
           this.initPortals(false);
           this.reset();
+          this.global.setLoading(false);
         });
       }else{
+        this.global.setLoading(false);
         this.router.navigateByUrl('/users');
       }
     }
@@ -106,14 +110,12 @@ export class EditComponent implements OnInit {
             this.portals.push(new Portal( item.id , item.name , item.dhcp_client , item.address_list ) );
           }
           this.selectedPortals.push(this.portals[0]);
-          this.global.setLoading(false);
         });
       }else{
         this.portalService.getPortals().subscribe((data : any) => {
           for (const item of data) {
             this.portals.push(new Portal( item.id , item.name , item.dhcp_client , item.address_list ) );
           }
-          this.global.setLoading(false);
         });
       }
     }
@@ -122,8 +124,7 @@ export class EditComponent implements OnInit {
       this.clientService.getClientType().subscribe((data : any) => {
         for (const item of data) {
           this.clientTypes.push(new ClientType( item.id , item.type , item.desc, item.allowed_portals ) );
-        }6
-        this.global.setLoading(false);
+        }
       });
     }
     initPermissions() {
@@ -131,8 +132,6 @@ export class EditComponent implements OnInit {
         for (const item of data) {
           this.permissions.push(new Permission( item.id , item.name , item.desc ) );
         }
-
-        this.global.setLoading(false);
       });
     }
 

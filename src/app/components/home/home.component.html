@@ -19,7 +19,7 @@
 
 <div class="container mb-5">
   <div class="row justify-content-around">
-    <div class="col-md-5">
+    <div class="col-md-5"  *ngIf="global.client.client_type.allowedPortals != 1">
       <h2 class="mb-3">Mis portales</h2>
       <table class="table table-bordered">
         <thead>
@@ -54,23 +54,20 @@
         <i *ngIf="global.loading || global.busy" class="fa fa-spin fa-spinner"></i>
         <ng-container *ngIf="!disabled"> {{clientsInPortal.length}} </ng-container>
       </h2>
-      <div class="alert alert-info text-center" *ngIf="disabled" role="alert">
-        <p>
-          <i class="fa fa-spin fa-spinner fa-4x"></i>
-        </p>
-        <h2 class="text-center">Cargando</h2>
-      </div>
-      <table class="table table-bordered text-center" *ngIf="!disabled">
+      <table class="table table-bordered text-center">
         <thead>
           <tr>
             <th class="w-70">Ip</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody  *ngIf="!disabled">
           <tr *ngFor="let client of clientsInPortal">
             <td style="font-size: x-large;"> {{client.ip_address}} </td>
           </tr>
         </tbody>
+
+        <app-loading [visible]="disabled"></app-loading>
+
       </table>
     </div>
   </div>
