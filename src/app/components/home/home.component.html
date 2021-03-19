@@ -26,7 +26,7 @@
           <tr>
             <th class="w-70">Portal</th>
             <th></th>
-            <th></th>
+            <th *ngIf="isAuth() || global.clientCan('close-portals')"></th>
           </tr>
         </thead>
         <tbody>
@@ -38,8 +38,8 @@
                 <ng-container *ngIf="!disabled">{{isActive(portal) ? 'Activo' : 'Cambiar'}}</ng-container>
               </button>
             </td>
-            <td>
-              <button class="btn btn-outline-danger btn-menu" (click)="close(portal)"  [disabled]="disabled">
+            <td *ngIf="isAuth() || global.clientCan('close-portals')">
+              <button class="btn btn-outline-danger btn-menu" (click)="close(portal)" *ngIf="!isActive(portal)"  [disabled]="disabled">
                 <i class="fa" [ngClass]="{ 'fa-close' :  !disabled, 'fa-spin fa-spinner' : disabled }"></i>
               </button>
             </td>
@@ -48,7 +48,7 @@
       </table>
     </div>
 
-    <div *ngIf="isAuth() || global.clientCan('see-user-in-portal')" class="col-md-5">
+    <div *ngIf="isAuth() || global.clientCan('see-users-in-portal')" class="col-md-5">
       <h2 class="mb-3">
         Usuarios en mi portal :
         <i *ngIf="global.loading || global.busy" class="fa fa-spin fa-spinner"></i>

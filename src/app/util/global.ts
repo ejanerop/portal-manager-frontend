@@ -46,7 +46,7 @@ export class Globals {
 
   clientCan( permission : string ) {
 
-    return this._client?.permissions.find(item => item.id == 1);
+    return this._client?.permissions.find(item => item.name == permission);
 
   }
 

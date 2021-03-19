@@ -90,15 +90,28 @@ export class HomeComponent implements OnInit {
 
     close( portal : Portal ) {
 
-      this.swalHelper.showLoading( 'Espere' , 'Cerrando portal' + portal.name );
-
-      this.portalService.close(portal).subscribe( (resp:any)=> {
-        console.log(resp);
-        Swal.fire('Correcto', 'Portal cerrado con éxito', 'success');
-        this.timeout();
-      },(error : any) => {
-        console.log(error);
-        Swal.fire('Ups!', 'Hubo un error', 'error');
+      Swal.fire({
+        title: 'Estás seguro que quieres cerrar ' + portal.name + '?',
+        text: "Le vas a tumbar el internet al berro!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, túmbasela!',
+        cancelButtonText : 'No!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire('Espere.' , 'Se esta procesando su solicitud.' , 'info' );
+          Swal.showLoading();
+          this.portalService.close(portal).subscribe( (resp:any)=> {
+            console.log(resp);
+            Swal.fire('Correcto', 'Portal cerrado con éxito', 'success');
+            this.timeout();
+          },(error : any) => {
+            console.log(error);
+            Swal.fire('Ups!', 'Hubo un error', 'error');
+          });
+        }
       });
 
     }
