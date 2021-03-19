@@ -81,7 +81,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let client of portal.clients; let i = index">
+            <tr *ngFor="let client of clientsInPortal; let i = index">
               <td>{{client.ip_address}}</td>
               <td>{{client.nick | username}}</td>
             </tr>
