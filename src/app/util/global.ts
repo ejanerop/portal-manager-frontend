@@ -44,6 +44,12 @@ export class Globals {
     console.log(client);
   }
 
+  clientCan( permission : string ) {
+
+    return this._client?.permissions.find(item => item.id == 1);
+
+  }
+
   setCurrentPortal( portal : Portal ) {
     this.portal = portal;
   }

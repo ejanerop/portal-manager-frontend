@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Client } from 'src/app/models/client.model';
+import { Permission } from 'src/app/models/permission.model';
 import { Portal } from 'src/app/models/portal.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { ClientsService } from 'src/app/services/clients.service';
 import { PortalsService } from 'src/app/services/portals.service';
 import { Globals } from 'src/app/util/global';
@@ -24,7 +26,8 @@ export class HomeComponent implements OnInit {
   constructor( private clientService : ClientsService ,
     private portalService : PortalsService ,
     public global : Globals ,
-    private swalHelper : SwalHelper ) { }
+    private swalHelper : SwalHelper ,
+    private authService : AuthService ) { }
 
     ngOnInit(): void {
 
@@ -34,9 +37,13 @@ export class HomeComponent implements OnInit {
 
     initHome() {
       this.global.setLoading(true);
-      this.clientService.getClientByIp().subscribe((resp : any) =>{
+      this.clientService.getInfoByIp().subscribe((resp : any) =>{
         let item = resp.body.client;
-        this.client = new Client(item.id , item.nick , item.ip_address , item.desc , item.client_type , item.portals, item.permissions);
+        let permissions : Permission[] = [];
+        for (const permission of item.permissions) {
+          permissions.push(new Permission(permission.id , permission.name , permission.desc));
+        }
+        this.client = new Client(item.id , item.nick , item.ip_address , item.desc , item.client_type , item.portals, permissions);
         this.global.setClient(this.client);
         this.currentPortal = resp.body.portal;
         this.global.setCurrentPortal(this.currentPortal);
@@ -113,6 +120,10 @@ export class HomeComponent implements OnInit {
 
     timeout() {
       this.global.triggerTimeout();
+    }
+
+    isAuth(){
+      return this.authService.isAuth();
     }
 
 

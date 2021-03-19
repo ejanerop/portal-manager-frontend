@@ -21,11 +21,13 @@ export class NavbarComponent implements OnInit {
   loading = this.global.loading;
   asked :boolean = false;
 
-  constructor( public router: Router,
-               private mainService : MainService,
-               private authService : AuthService ,
-               private swalHelper : SwalHelper ,
-               public global : Globals) { }
+  constructor( public router: Router, private mainService : MainService, private authService : AuthService , private swalHelper : SwalHelper , public global : Globals){
+
+  }
+
+  get disabled() {
+    return this.global.busy || this.global.loading
+  }
 
   ngOnInit(): void {
     this.setIp();
@@ -77,9 +79,10 @@ export class NavbarComponent implements OnInit {
     this.mainService.getIp().subscribe((data :any) => this.ip = data.body);
   }
 
-  async userCan( permission : string ) {
+  userCan( permission : string ) {
 
-    return this.global.client?.permissions.some(item => {item.name == permission});
+    return this.global.clientCan(permission);
+
   }
 
 }

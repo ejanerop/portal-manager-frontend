@@ -43,9 +43,9 @@ export class ClientsService {
 
   }
 
-  getClientByIp() {
+  getInfoByIp() {
 
-    const url = `${this.global.url}/ip_client`;
+    const url = `${this.global.url}/ip_info`;
 
     return this.http.get(url, {observe : 'response'});
 
