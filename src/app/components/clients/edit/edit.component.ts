@@ -76,7 +76,7 @@ export class EditComponent implements OnInit {
     createForm() {
       this.form = this.fb.group({
         nick : [''],
-        ip_address : ['192.168.20.', [Validators.required, Validators.pattern('192\.168\.20\.(25[0-4]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[1-9])')]],
+        ip_address : ['192.168.20.', [Validators.required, Validators.pattern('192\.168\.2[0-1]\.(25[0-4]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[1-9])')]],
         type : ['1', [Validators.required]],
         desc : [''],
         portals: this.fb.array([ ['1', Validators.required] ]),

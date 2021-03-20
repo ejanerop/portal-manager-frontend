@@ -48,13 +48,15 @@
       </table>
     </div>
 
-    <div *ngIf="isAuth() || global.clientCan('see-users-in-portal')" class="col-md-5">
-      <h2 class="mb-3">
+    <div class="col-md-5">
+      <h2 class="mb-3" *ngIf="!disabled" >
         Usuarios en mi portal :
-        <i *ngIf="global.loading || global.busy" class="fa fa-spin fa-spinner"></i>
-        <ng-container *ngIf="!disabled"> {{clientsInPortal.length}} </ng-container>
+        <ng-container  *ngIf="isAuth() || global.clientCan('see-users-count-in-portal')">
+          <i *ngIf="disabled" class="fa fa-spin fa-spinner"></i>
+          <ng-container *ngIf="!disabled"> {{clientsInPortal.length}} </ng-container>
+        </ng-container>
       </h2>
-      <table class="table table-bordered text-center">
+      <table class="table table-bordered text-center" *ngIf="isAuth() || global.clientCan('see-users-in-portal')" >
         <thead>
           <tr>
             <th class="w-70">Ip</th>
@@ -81,10 +83,5 @@
 </div>
 
 
-<footer class="bg-light text-center text-lg-start">
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-    © 2021 Copyright:
-    <a class="text-dark" href="https://github.com/ejanerop" target="_blank">Eric Janero</a>
-  </div>
-</footer>
+<app-footer [sticky]="false"></app-footer>
 
