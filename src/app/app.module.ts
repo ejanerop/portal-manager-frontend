@@ -21,6 +21,7 @@ import { ShowComponent } from './components/portals/show/show.component';
 import { SwalHelper } from './util/swalHelper';
 import { LoadingComponent } from './components/shared/loading/loading.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
+import { CloseBannerComponent } from './components/home/close-banner/close-banner.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { FooterComponent } from './components/shared/footer/footer.component';
     FeaturesComponent,
     ShowComponent,
     LoadingComponent,
-    FooterComponent
+    FooterComponent,
+    CloseBannerComponent
   ],
   imports: [
     BrowserModule,
