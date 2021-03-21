@@ -52,6 +52,7 @@ export class ClientsService {
   }
 
   edit(data : any) {
+
     const url = data.id == 0 ? `${this.global.url}/client` : `${this.global.url}/client/${data.id}`;
 
     data.api_token = this.authService.token;
@@ -71,6 +72,7 @@ export class ClientsService {
     return this.http.delete(url, {observe : 'response'});
 
   }
+
   close( client : Client ) {
 
     const url = `${this.global.url}/client_logout/${client.id}`;

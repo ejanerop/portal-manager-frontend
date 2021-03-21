@@ -12,13 +12,13 @@ import { ShowComponent } from './components/portals/show/show.component';
 
 const routes: Routes = [
   {path : 'home', component : HomeComponent},
-  {path : 'client', component : ClientsComponent, canActivate : [AuthGuard]},
-  {path : 'portal', component : PortalsComponent, canActivate : [AuthGuard]},
-  {path : 'log', component : LogsComponent},
   {path : 'login', component : LoginComponent},
+  {path : 'client', component : ClientsComponent, canActivate : [AuthGuard]},
+  {path : 'client/:id', component : EditClientComponent, canActivate : [AuthGuard]},
+  {path : 'portal', component : PortalsComponent, canActivate : [AuthGuard]},
   {path : 'portal/:id', component : EditPortalComponent, canActivate : [AuthGuard]},
   {path : 'portal/:id/show', component : ShowComponent, canActivate : [AuthGuard]},
-  {path : 'client/:id', component : EditClientComponent, canActivate : [AuthGuard]},
+  {path : 'log', component : LogsComponent},
   {path : '**', pathMatch : 'full', redirectTo : 'home'},
 ];
 

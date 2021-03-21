@@ -3,7 +3,9 @@ import { environment } from '../../environments/environment';
 import { Client } from '../models/client.model';
 import { Portal } from '../models/portal.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class Globals {
 
   private isBusy : boolean = false;
@@ -13,35 +15,49 @@ export class Globals {
   private portal : Portal = new Portal();
 
   triggerTimeout() {
+
     this.isBusy = true;
     setTimeout(() => {
       this.isBusy = false;
     }, 5500);
+
   }
 
   public get busy() {
+
     return this.isBusy;
+
   }
 
   public get loading() {
+
     return this._loading;
+
   }
 
   public get url() {
+
     return this._url;
+
   }
 
   public get client() {
+
     return this._client;
+
   }
 
   public get currentPortal() {
+
     return this.portal;
+
   }
 
   setClient( client : Client ) {
+
     this._client = client;
     console.log(client);
+
   }
 
   clientCan( permission : string ) {
@@ -51,11 +67,15 @@ export class Globals {
   }
 
   setCurrentPortal( portal : Portal ) {
+
     this.portal = portal;
+
   }
 
   setLoading(val : boolean){
+
     this._loading = val;
+
   }
 
 }

@@ -19,12 +19,12 @@
             <a class="nav-link" [routerLink]="['/portal']" routerLinkActive="active">Portales</a>
           </li>
         </ng-container>
-        <li class="nav-item ms-3" *ngIf="isAuth() || global.clientCan('see-logs')">
+        <li class="nav-item ms-3" *ngIf="clientCan('see-logs')">
           <a class="nav-link" [routerLink]="['/log']" routerLinkActive="active">Registro de acciones</a>
         </li>
       </ul>
       <div class="d-flex">
-        <button class="btn btn-outline-warning btn-lg me-2" type="button" *ngIf="isAuth() || userCan('see-portal')" disabled>
+        <button class="btn btn-outline-warning btn-lg me-2" type="button" *ngIf="clientCan('see-portal')" disabled>
           <ng-container *ngIf="!disabled">Estás en el portal: {{global.currentPortal.name}}</ng-container>
           <i *ngIf="disabled" class="fa fa-spin fa-spinner"></i>
         </button>

@@ -14,42 +14,47 @@ import Swal from "sweetalert2";
 })
 export class ClientsComponent implements OnInit {
 
-  clients : Client[] = [];
   allClients : Client[] = [];
+  clients : Client[] = [];
   termino : string = '';
 
-  constructor( private clientService : ClientsService , private router : Router ,  public global : Globals , public swalHelper : SwalHelper ) { }
+  constructor (
+    private clientService : ClientsService ,
+    private router : Router ,
+    public global : Globals ,
+    public swalHelper : SwalHelper
+  ) { }
 
   ngOnInit(): void {
-    this.initComponent();
-    let tooltip = document.querySelector('#tooltip') as HTMLElement;
-    let asd = document.querySelector('#asd');
-    if (asd && tooltip) {
-      createPopper(asd , tooltip , {placement : 'right'})
 
-    }
+    this.initComponent();
+
   }
 
   initComponent() {
     this.clients = [];
     this.allClients = [];
     this.clientService.getClients().subscribe( (data : any) => {
+
       for (const item of data.body) {
         this.clients.push(item);
       }
       this.clients.sort((a, b) => Number(a.ip_address.split(".")[3]) - Number(b.ip_address.split(".")[3]));
       this.allClients = this.clients;
-      console.log(this.clients);
 
     });
   }
 
   new() {
+
     this.router.navigateByUrl('/client/new');
+
   }
 
   edit( client : Client ) {
+
     this.router.navigateByUrl(`/client/${client.id}`);
+
   }
 
   delete( client : Client ) {

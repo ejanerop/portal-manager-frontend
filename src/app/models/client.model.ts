@@ -3,21 +3,23 @@ import { Permission } from "./permission.model";
 import { Portal } from "./portal.model";
 
 export class Client {
-  id : number;
-  nick : string;
-  ip_address : string;
-  desc : string;
   client_type : ClientType;
+  desc : string;
+  id : number;
+  ip_address : string;
+  nick : string;
+  permissions : Permission[];
   portals : Portal[];
-  permissions : Permission[]
 
-  constructor( id? : number ,
-               nick? : string ,
-               ip_address? : string ,
-               desc? : string ,
-               client_type? : ClientType,
-               portals? : Portal[] ,
-               permissions? : Permission[] ) {
+  constructor(
+    id? : number ,
+    nick? : string ,
+    ip_address? : string ,
+    desc? : string ,
+    client_type? : ClientType,
+    portals? : Portal[] ,
+    permissions? : Permission[]
+    ) {
 
     this.id = id ? id : 0 ;
     this.nick = nick ? nick : '';
@@ -30,7 +32,9 @@ export class Client {
   }
 
   public get allowedPortals() {
+
     return this.client_type.allowedPortals;
+
   }
 
   public hasPermission( permission : string ) {

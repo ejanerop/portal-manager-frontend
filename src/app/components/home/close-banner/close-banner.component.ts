@@ -11,13 +11,19 @@ import Swal from "sweetalert2";
 })
 export class CloseBannerComponent implements OnInit {
 
-  constructor( public global : Globals , public service : ClientsService , private swalHelper : SwalHelper ) { }
+  constructor(
+    public global : Globals ,
+    public service : ClientsService ,
+    private swalHelper : SwalHelper
+  ) { }
 
   ngOnInit(): void {
   }
 
   get disabled() {
-    return this.global.busy || this.global.loading
+
+    return this.global.busy || this.global.loading;
+
   }
 
   closeCurrent() {
@@ -33,11 +39,13 @@ export class CloseBannerComponent implements OnInit {
       Swal.fire('Ups!', error.error, 'error');
       this.timeout();
     });
+
   }
 
-
   timeout() {
+
     this.global.triggerTimeout();
+
   }
 
 }

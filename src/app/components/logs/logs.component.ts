@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Log } from 'src/app/models/Log.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { MainService } from 'src/app/services/main.service';
 
 @Component({

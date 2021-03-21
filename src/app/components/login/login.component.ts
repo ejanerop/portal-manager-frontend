@@ -26,18 +26,24 @@ export class LoginComponent implements OnInit {
   }
 
   public get invalidUsername() {
+
     return this.form.get('username')?.invalid && this.form.get('username')?.touched;
+
   }
 
   get invalidPassword(){
+
     return this.form.get('password')?.invalid && this.form.get('password')?.touched;
+
   }
 
   createForm(){
+
     this.form = this.fb.group({
       username : ['', Validators.required],
       password : ['', Validators.required],
     });
+
   }
 
   login(){
@@ -59,7 +65,7 @@ export class LoginComponent implements OnInit {
     Swal.showLoading();
 
     this.service.login(this.form.value).subscribe(
-      (data : any)=>{
+      ()=>{
         this.router.navigateByUrl('/home');
         this.swalHelper.fireToast(true , 'Inicio de sesión exitoso!');
       },error=>{

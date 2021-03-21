@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MainService } from 'src/app/services/main.service';
 import { interval } from 'rxjs';
-import { Portal } from 'src/app/models/portal.model';
-import { ClientsService } from 'src/app/services/clients.service';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import { SwalHelper } from 'src/app/util/swalHelper';
@@ -16,20 +14,27 @@ import { Globals } from 'src/app/util/global';
 })
 export class NavbarComponent implements OnInit {
 
+  asked :boolean = false;
   ip : string = '';
   isConnected = false;
   loading = this.global.loading;
-  asked :boolean = false;
 
-  constructor( public router: Router, private mainService : MainService, private authService : AuthService , private swalHelper : SwalHelper , public global : Globals){
-
-  }
+  constructor(
+    public router: Router,
+    private mainService : MainService,
+    private authService : AuthService ,
+    private swalHelper : SwalHelper ,
+    public global : Globals
+  ){ }
 
   get disabled() {
-    return this.global.busy || this.global.loading
+
+    return this.global.busy || this.global.loading;
+
   }
 
   ngOnInit(): void {
+
     this.setIp();
     const secondsCounter = interval(5000);
     let that = this;
@@ -44,13 +49,17 @@ export class NavbarComponent implements OnInit {
         that.isConnected = false;
       });
     });
+
   }
 
   login() {
+
     this.router.navigateByUrl('/login');
+
   }
 
   logout() {
+
     Swal.fire({
       icon : 'question',
       title : 'Está seguro que desea cerrar sesión?',
@@ -69,19 +78,24 @@ export class NavbarComponent implements OnInit {
         });
       }
     });
+
   }
 
   isAuth(){
+
     return this.authService.isAuth();
+
   }
 
   setIp(){
+
     this.mainService.getIp().subscribe((data :any) => this.ip = data.body);
+
   }
 
-  userCan( permission : string ) {
+  clientCan( permission : string ) {
 
-    return this.global.clientCan(permission);
+    return this.global.clientCan(permission) || this.isAuth();
 
   }
 

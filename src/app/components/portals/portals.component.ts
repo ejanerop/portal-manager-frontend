@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Globals } from 'src/app/util/global';
 import { Portal } from 'src/app/models/portal.model';
 import { PortalsService } from 'src/app/services/portals.service';
-import { Globals } from 'src/app/util/global';
+import { Router } from '@angular/router';
 import { SwalHelper } from 'src/app/util/swalHelper';
 import Swal from "sweetalert2";
 
@@ -15,16 +15,21 @@ export class PortalsComponent implements OnInit {
 
   portals : Portal[] = [];
 
-  constructor( private portalService : PortalsService ,
-               private router : Router,
-               public global : Globals,
-               private swalHelper : SwalHelper ) { }
+  constructor(
+    private portalService : PortalsService ,
+    private router : Router,
+    public global : Globals,
+    private swalHelper : SwalHelper
+  ) { }
 
   ngOnInit(): void {
+
     this.initComponent();
+
   }
 
   initComponent(){
+
     this.portals = [];
     this.portalService.getPortals().subscribe( (data : any) => {
       for (const item of data) {
@@ -32,21 +37,29 @@ export class PortalsComponent implements OnInit {
       }
       this.portals.sort((a, b) => Number(a.dhcp_client.slice(1)) - Number(b.dhcp_client.slice(1)));
     });
+
   }
 
   new() {
+
     this.router.navigateByUrl('/portal/new');
+
   }
 
   show( portal : Portal ){
-    this.router.navigateByUrl(`/portal/${portal.id}/show`)
+
+    this.router.navigateByUrl(`/portal/${portal.id}/show`);
+
   }
 
   edit( portal : Portal ) {
+
     this.router.navigateByUrl(`/portal/${portal.id}`);
+
   }
 
   delete( portal : Portal ) {
+
     Swal.fire({
       title: 'Estás seguro que quieres eliminar ' + portal.name + '?',
       text: "Ten en cuenta que esta acción no se puede deshacer.",
@@ -75,9 +88,11 @@ export class PortalsComponent implements OnInit {
         });
       }
     });
+
   }
 
   close( portal : Portal ) {
+
     Swal.fire({
       title: 'Estás seguro que quieres cerrar la sesión de ' + portal.name + '?',
       text: "Le vas a tumbar el internet al berro!",
@@ -103,11 +118,13 @@ export class PortalsComponent implements OnInit {
         });
       }
     });
+
   }
 
   timeout() {
-    this.global.triggerTimeout();
-  }
 
+    this.global.triggerTimeout();
+
+  }
 
 }

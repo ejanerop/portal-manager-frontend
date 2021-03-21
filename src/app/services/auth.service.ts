@@ -11,7 +11,9 @@ export class AuthService {
   api_token : string | null = '';
 
   constructor( private http : HttpClient , public global : Globals ) {
+
     this.loadToken();
+
   }
 
   login(data : any){
@@ -52,8 +54,10 @@ export class AuthService {
   }
 
   removeToken() {
+
     localStorage.removeItem('token');
     localStorage.removeItem('expira');
+
   }
 
   loadToken() {
@@ -69,10 +73,13 @@ export class AuthService {
   }
 
   get token() {
+
     return this.api_token;
+
   }
 
   isAuth() {
+
     if ( this.api_token != null && this.api_token.length < 2  ) {
       return false;
     }
@@ -88,4 +95,5 @@ export class AuthService {
     }
 
   }
+
 }

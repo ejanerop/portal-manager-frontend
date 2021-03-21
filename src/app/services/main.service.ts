@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Globals } from '../util/global';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +8,7 @@ import { AuthService } from './auth.service';
 export class MainService {
 
 
-  constructor( private http : HttpClient , public global : Globals , private authService : AuthService ) { }
+  constructor( private http : HttpClient , public global : Globals ) { }
 
 
   getQuery( query : string ){
@@ -27,6 +26,7 @@ export class MainService {
   }
 
   pingInternet() {
+
     const url = 'https://api.github.com';
 
     return this.http.get(url, {observe : 'response'});
@@ -35,9 +35,8 @@ export class MainService {
 
   logs() {
 
-    return this.getQuery(`log?api_token=${this.authService.token}`);
+    return this.getQuery(`log`);
 
   }
-
 
 }

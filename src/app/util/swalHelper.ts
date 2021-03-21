@@ -4,8 +4,8 @@ import Swal from "sweetalert2";
 @Injectable()
 export class SwalHelper {
 
-
   fireToast(success : boolean, text : string){
+
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -21,9 +21,11 @@ export class SwalHelper {
       icon: success ? 'success' : 'error',
       title: text
     });
+
   }
 
   showLoading( title : string , text : string ) {
+
     Swal.fire({
       icon : 'info',
       title : title,

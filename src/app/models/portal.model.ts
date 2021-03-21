@@ -9,7 +9,13 @@ export class Portal {
   address_list : string;
   clients : Client[];
 
-  constructor( id? : number , name? : string , dhcp_client? : string , address_list? : string , clients? : Client[]) {
+  constructor(
+    id? : number ,
+    name? : string ,
+    dhcp_client? : string ,
+    address_list? : string ,
+    clients? : Client[]
+  ) {
 
     this.id = id ? id : 0 ;
     this.name = name ? name : '' ;

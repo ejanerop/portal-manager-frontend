@@ -6,7 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class UsernamePipe implements PipeTransform {
 
   transform( name: string | null ): string {
+
     return !name || name.trim() == '' ? '---': name;
+
   }
 
 }
